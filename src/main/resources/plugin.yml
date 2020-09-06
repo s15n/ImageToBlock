@@ -2,3 +2,7 @@ name: ImagetoBlockPlugin
 version: ${project.version}
 main: visar.plugins.ImagetoBlockPlugin.Main
 api-version: 1.16
+commands:
+  image:
+    description: generates image
+    usage: /image <URL | File Path> [width] [height]

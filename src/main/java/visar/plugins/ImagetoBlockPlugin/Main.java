@@ -25,11 +25,12 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin implements Listener{
-	private static BufferedImage image = null;
+	static BufferedImage image = null;
 							
 	@Override
 	public void onEnable() {
 		Bukkit.getPluginManager().registerEvents(this, this);
+		getCommand("image").setExecutor(new ImageCommand());
 		
 		try {
 		//image = ImageIO.read(new File("C:\\Users\\visar\\OneDrive\\Dokumente\\pikachu.jpg"));
