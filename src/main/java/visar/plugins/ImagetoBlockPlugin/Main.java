@@ -5,8 +5,11 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 
@@ -29,7 +32,9 @@ public class Main extends JavaPlugin implements Listener{
 		Bukkit.getPluginManager().registerEvents(this, this);
 		
 		try {
-		image = ImageIO.read(new File("C:\\Users\\visar\\OneDrive\\Dokumente\\pikachu.jpg"));
+		//image = ImageIO.read(new File("C:\\Users\\visar\\OneDrive\\Dokumente\\pikachu.jpg"));
+			//image = ImageIO.read(new File("C:\\Users\\Simon\\Desktop\\Visar Server\\butterfly.png"));
+			image = ImageIO.read(new URL("https://i.imgur.com/FUx3ACH.jpg"));
 		
 		}catch(IOException e) {
 			getServer().broadcastMessage("Didn't work");
@@ -49,30 +54,31 @@ public class Main extends JavaPlugin implements Listener{
 			}else this.getConfig().set(path+".secondloc",l);
 			
 			
-			player.sendMessage(image.getHeight()+" "+image.getWidth());
-			//player.sendMessage("The Z Axis is the width of the displayed picture, the X Axis is the height of the picture");
+			player.sendMessage(image.getWidth()+" "+image.getHeight());
+			//player.sendMessage("The X Axis is the width of the displayed picture, the Z Axis is the height of the picture");
 		}
 		if(this.getConfig().get(path+".firstloc") != null && this.getConfig().get(path+".secondloc") != null) {
 			Location firstl = (Location) this.getConfig().get(path+".firstloc"),
 					 secondl = (Location) this.getConfig().get(path+".secondloc");
 						
-			int bigX = firstl.getBlockX() > secondl.getBlockX() ? firstl.getBlockX() : secondl.getBlockX(),
+			int bigX = Math.max(firstl.getBlockX(), secondl.getBlockX()),
 				smallX = bigX == firstl.getBlockX() ? secondl.getBlockX() : firstl.getBlockX(),
-				bigZ = firstl.getBlockZ() > secondl.getBlockZ() ? firstl.getBlockZ() : secondl.getBlockZ(),
+				bigZ = Math.max(firstl.getBlockZ(), secondl.getBlockZ()),
 				smallZ = bigZ == firstl.getBlockZ() ? secondl.getBlockZ() : firstl.getBlockZ();
 			try {
-				BufferedImage resizedImage = resizingImage(image,(bigZ-smallZ),(bigX-smallX));
+				BufferedImage resizedImage = resizingImage(image,(bigX-smallX),(bigZ-smallZ));
+				System.out.println("x - " + (bigX - smallX));
+				System.out.println("z - " + (bigZ - smallZ));
 				int row = 0;
-				for(int i = smallZ; i<=bigZ; i++) {
+				for(int i = smallZ; i<bigZ; i++) {
 					int column = 0;
-					for(int j= smallX; j<=bigX; j++) {
+					for(int j=smallX; j<bigX; j++) {
 						Location l = new  Location(firstl.getWorld(), j, firstl.getBlockY(), i);
 						Block b = l.getBlock();
-						b.setType(RGBBlockColor.getClosestBlockValue(new Color(resizedImage.getRGB(column,row))));
+						b.setType(RGBBlockColor.getClosestBlockValue(new Color(resizedImage.getRGB(column, row))));
 						column++;
 					}
-					row++;	
-					
+					row++;
 				}
 				this.getConfig().set(path+".firstloc",null);
 				this.getConfig().set(path+".secondloc",null);
@@ -86,12 +92,15 @@ public class Main extends JavaPlugin implements Listener{
 	
 	private static BufferedImage resizingImage(BufferedImage srcimage,int new_width, int new_height) throws IOException {
 		
-		BufferedImage resizedImage = new BufferedImage(new_width, new_height, Transparency.TRANSLUCENT);
+		BufferedImage resizedImage = new BufferedImage(new_width, new_height, srcimage.getType());
 		Graphics2D g2 = resizedImage.createGraphics();
 		g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-		g2.drawImage(resizedImage, 0, 0, new_width, new_height, null);
+		g2.drawImage(srcimage, 0, 0, new_width, new_height, null);
 		g2.dispose();
-		
+
+		File imageFile = new File("C:/users/Simon/Desktop/Visar Server/test_resized.png");
+		imageFile.createNewFile();
+		ImageIO.write(resizedImage,"png",imageFile);
 		return resizedImage;
 	}
 	

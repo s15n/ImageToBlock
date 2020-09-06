@@ -1,4 +1,4 @@
-package visar.plugins.imagetoblockplugin;
+package visar.plugins.ImagetoBlockPlugin;
 
 import java.awt.Color;
 

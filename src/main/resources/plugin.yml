@@ -1,4 +1,4 @@
 name: ImagetoBlockPlugin
 version: ${project.version}
-main: visar.plugins.imagetoblockplugin.Main
+main: visar.plugins.ImagetoBlockPlugin.Main
 api-version: 1.16
