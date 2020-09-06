@@ -1,4 +1,4 @@
-package visar.plugins.ImagetoBlockPlugin;
+package visar.plugins.imagetoblockplugin;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -7,6 +7,7 @@ import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 
@@ -20,6 +21,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import visar.plugins.imagetoblockplugin.RGBBlockColor;
 
 public class Main extends JavaPlugin implements Listener{
 	private static BufferedImage image = null,
@@ -29,7 +31,8 @@ public class Main extends JavaPlugin implements Listener{
 		Bukkit.getPluginManager().registerEvents(this, this);
 		
 		try {
-		image = ImageIO.read(new File("C:\\Users\\visar\\OneDrive\\Dokumente\\pikachu.jpg"));
+		//image = ImageIO.read(new File("C:\\Users\\visar\\OneDrive\\Dokumente\\pikachu.jpg"));
+			image = ImageIO.read(new URL("https://www.github.com/FauxKiwi/ImageToBlock/tree/master/src%2Fmain%2Fresources/test.png"));
 		
 		}catch(IOException e) {
 			getServer().broadcastMessage("Didn't work");
