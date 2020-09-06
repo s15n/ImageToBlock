@@ -47,7 +47,7 @@ public class Main extends JavaPlugin implements Listener{
 			int bigX = Math.max(firstL.getBlockX(), secondL.getBlockX()),
 				smallX = bigX == firstL.getBlockX() ? secondL.getBlockX() : firstL.getBlockX(),
 				bigZ = Math.max(firstL.getBlockZ(), secondL.getBlockZ()),
-				smallZ =bigZ == firstL.getBlockZ() ? secondL.getBlockZ() : firstL.getBlockZ();
+				smallZ = bigZ == firstL.getBlockZ() ? secondL.getBlockZ() : firstL.getBlockZ();
 				resizingImage(image,(bigZ-smallZ),(bigX-smallX));
 					
 				int row = 0;
@@ -59,9 +59,7 @@ public class Main extends JavaPlugin implements Listener{
 						b.setType(RGBBlockColor.getClosestBlockValue(new Color(resizedImage.getRGB(column, row))));
 						column++;
 					}
-					row++;
-					
-				
+					row++;				
 			}
 			firstL = null;
 			secondL = null;
