@@ -1,0 +1,4 @@
+name: ImagetoBlockPlugin
+version: 1.0-SNAPSHOT
+main: visar.plugins.imagetoblockplugin.Main
+api-version: 1.16
