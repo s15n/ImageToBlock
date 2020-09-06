@@ -59,7 +59,7 @@ public class Main extends JavaPlugin implements Listener{
 			int bigX = firstl.getBlockX() > secondl.getBlockX() ? firstl.getBlockX() : secondl.getBlockX(),
 				smallX = bigX == firstl.getBlockX() ? secondl.getBlockX() : firstl.getBlockX(),
 				bigZ = firstl.getBlockZ() > secondl.getBlockZ() ? firstl.getBlockZ() : secondl.getBlockZ(),
-				smallZ =bigZ == firstl.getBlockZ() ? secondl.getBlockZ() : firstl.getBlockZ();
+				smallZ = bigZ == firstl.getBlockZ() ? secondl.getBlockZ() : firstl.getBlockZ();
 				//resizingImage(image,(bigZ-smallZ),(bigX-smallX));
 					
 				int row = 0;
@@ -72,8 +72,7 @@ public class Main extends JavaPlugin implements Listener{
 						column++;
 					}
 					row++;
-					
-				
+									
 			}
 			this.getConfig().set(path+".firstloc",null);
 			this.getConfig().set(path+".secondloc",null);	
