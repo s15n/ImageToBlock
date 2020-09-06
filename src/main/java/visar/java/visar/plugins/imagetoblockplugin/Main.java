@@ -29,7 +29,8 @@ public class Main extends JavaPlugin implements Listener{
 		Bukkit.getPluginManager().registerEvents(this, this);
 		
 		try {
-		image = ImageIO.read(new File("C:\\Users\\visar\\OneDrive\\Dokumente\\pikachu.jpg"));
+		//image = ImageIO.read(new File("C:\\Users\\visar\\OneDrive\\Dokumente\\pikachu.jpg"));
+		image = ImageIO.read("https://www.github.com/FauxKiwi/ImageToBlock/tree/master/src%2Fmain%2Fresources/test.png");
 		
 		}catch(IOException e) {
 			getServer().broadcastMessage("Didn't work");
@@ -54,12 +55,12 @@ public class Main extends JavaPlugin implements Listener{
 		}
 		if(this.getConfig().get(path+".firstloc") != null && this.getConfig().get(path+".secondloc") != null) {
 			Location firstl = (Location) this.getConfig().get(path+".firstloc"),
-				 secondl = (Location) this.getConfig().get(path+".secondloc");
+					 secondl = (Location) this.getConfig().get(path+".secondloc");
 						
 			int bigX = firstl.getBlockX() > secondl.getBlockX() ? firstl.getBlockX() : secondl.getBlockX(),
-			    smallX = bigX == firstl.getBlockX() ? secondl.getBlockX() : firstl.getBlockX(),
-			    bigZ = firstl.getBlockZ() > secondl.getBlockZ() ? firstl.getBlockZ() : secondl.getBlockZ(),
-			    smallZ = bigZ == firstl.getBlockZ() ? secondl.getBlockZ() : firstl.getBlockZ();
+				smallX = bigX == firstl.getBlockX() ? secondl.getBlockX() : firstl.getBlockX(),
+				bigZ = firstl.getBlockZ() > secondl.getBlockZ() ? firstl.getBlockZ() : secondl.getBlockZ(),
+				smallZ =bigZ == firstl.getBlockZ() ? secondl.getBlockZ() : firstl.getBlockZ();
 				//resizingImage(image,(bigZ-smallZ),(bigX-smallX));
 					
 				int row = 0;
@@ -72,7 +73,8 @@ public class Main extends JavaPlugin implements Listener{
 						column++;
 					}
 					row++;
-									
+					
+				
 			}
 			this.getConfig().set(path+".firstloc",null);
 			this.getConfig().set(path+".secondloc",null);	
