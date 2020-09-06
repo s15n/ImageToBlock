@@ -57,9 +57,9 @@ public class Main extends JavaPlugin implements Listener{
 				 secondl = (Location) this.getConfig().get(path+".secondloc");
 						
 			int bigX = firstl.getBlockX() > secondl.getBlockX() ? firstl.getBlockX() : secondl.getBlockX(),
-				smallX = bigX == firstl.getBlockX() ? secondl.getBlockX() : firstl.getBlockX(),
-				bigZ = firstl.getBlockZ() > secondl.getBlockZ() ? firstl.getBlockZ() : secondl.getBlockZ(),
-				smallZ = bigZ == firstl.getBlockZ() ? secondl.getBlockZ() : firstl.getBlockZ();
+			    smallX = bigX == firstl.getBlockX() ? secondl.getBlockX() : firstl.getBlockX(),
+			    bigZ = firstl.getBlockZ() > secondl.getBlockZ() ? firstl.getBlockZ() : secondl.getBlockZ(),
+			    smallZ = bigZ == firstl.getBlockZ() ? secondl.getBlockZ() : firstl.getBlockZ();
 				//resizingImage(image,(bigZ-smallZ),(bigX-smallX));
 					
 				int row = 0;
