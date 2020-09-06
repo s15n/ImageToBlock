@@ -23,7 +23,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin implements Listener{
 	private static BufferedImage image = null,
-								resizedImage = null;
+				     resizedImage = null;
 	@Override
 	public void onEnable() {
 		Bukkit.getPluginManager().registerEvents(this, this);
@@ -75,9 +75,8 @@ public class Main extends JavaPlugin implements Listener{
 					
 				
 			}
-			firstl = null;
-			secondl = null;
-				
+			this.getConfig().set(path+".firstloc",null);
+			this.getConfig().set(path+".secondloc",null);	
 			
 		}
 	}
