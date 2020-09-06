@@ -54,7 +54,7 @@ public class Main extends JavaPlugin implements Listener{
 		}
 		if(this.getConfig().get(path+".firstloc") != null && this.getConfig().get(path+".secondloc") != null) {
 			Location firstl = (Location) this.getConfig().get(path+".firstloc"),
-					 secondl = (Location) this.getConfig().get(path+".secondloc");
+				 secondl = (Location) this.getConfig().get(path+".secondloc");
 						
 			int bigX = firstl.getBlockX() > secondl.getBlockX() ? firstl.getBlockX() : secondl.getBlockX(),
 				smallX = bigX == firstl.getBlockX() ? secondl.getBlockX() : firstl.getBlockX(),
