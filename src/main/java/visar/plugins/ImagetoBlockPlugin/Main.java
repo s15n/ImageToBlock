@@ -4,9 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 
 import javax.imageio.ImageIO;
 
@@ -29,8 +29,8 @@ public class Main extends JavaPlugin implements Listener{
 	public void onEnable() {
 		plugin = this;
 		Bukkit.getPluginManager().registerEvents(this, this);
-		getCommand("image").setExecutor(new ImageCommand());
-		getCommand("setdefaultimage").setExecutor(new defaultImageCommand());
+		Objects.requireNonNull(getCommand("image")).setExecutor(new ImageCommand());
+		Objects.requireNonNull(getCommand("setdefaultimage")).setExecutor(new defaultImageCommand());
 		
 	} 
 	@EventHandler
@@ -50,7 +50,7 @@ public class Main extends JavaPlugin implements Listener{
 		}else image = (BufferedImage) this.getConfig().get(player.getUniqueId().toString()+".image");
 
 		if(player.getInventory().getItemInMainHand().getType() == Material.WOODEN_AXE && e.getAction() == Action.LEFT_CLICK_BLOCK) {
-			Location l = e.getClickedBlock().getLocation();
+			Location l = Objects.requireNonNull(e.getClickedBlock()).getLocation();
 			if(this.getConfig().get(path+".firstloc") == null) {
 				this.getConfig().set(path+".firstloc",l);
 			}else this.getConfig().set(path+".secondloc",l);
@@ -62,7 +62,9 @@ public class Main extends JavaPlugin implements Listener{
 		if(this.getConfig().get(path+".locations"+".firstloc") != null && this.getConfig().get(path+".locations"+".secondloc") != null) {
 			Location firstl = (Location) this.getConfig().get(path+".firstloc"),
 					 secondl = (Location) this.getConfig().get(path+".secondloc");
-						
+
+			assert firstl != null;
+			assert secondl != null;
 			int bigX = Math.max(firstl.getBlockX(), secondl.getBlockX()),
 				smallX = bigX == firstl.getBlockX() ? secondl.getBlockX() : firstl.getBlockX(),
 				bigZ = Math.max(firstl.getBlockZ(), secondl.getBlockZ()),
@@ -84,7 +86,7 @@ public class Main extends JavaPlugin implements Listener{
 				}
 				this.getConfig().set(path+".firstloc",null);
 				this.getConfig().set(path+".secondloc",null);
-			} catch (IOException e1) {
+			} catch (Exception e1) {
 				player.sendMessage("Problems while resizing picture");
 			}
 					
@@ -92,7 +94,7 @@ public class Main extends JavaPlugin implements Listener{
 		}
 	}
 	
-	private static BufferedImage resizingImage(BufferedImage srcimage,int new_width, int new_height) throws IOException {
+	private static BufferedImage resizingImage(BufferedImage srcimage,int new_width, int new_height) {
 		
 		BufferedImage resizedImage = new BufferedImage(new_width, new_height, srcimage.getType());
 		Graphics2D g2 = resizedImage.createGraphics();
@@ -100,9 +102,8 @@ public class Main extends JavaPlugin implements Listener{
 		g2.drawImage(srcimage, 0, 0, new_width, new_height, null);
 		g2.dispose();
 
-		File imageFile = new File("C:/users/Simon/Desktop/Visar Server/test_resized.png");
-		imageFile.createNewFile();
-		ImageIO.write(resizedImage,"png",imageFile);
+		/*File imageFile = new File("C:/users/Simon/Desktop/Visar Server/test_resized.png");
+		ImageIO.write(resizedImage,"png",imageFile);*/
 		return resizedImage;
 	}
 	public static Main getPlugin() {
