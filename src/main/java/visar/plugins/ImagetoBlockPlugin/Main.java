@@ -1,6 +1,7 @@
 package visar.plugins.ImagetoBlockPlugin;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -36,15 +37,19 @@ public class Main extends JavaPlugin implements Listener{
 
 		if(plugin.getConfig().get(player.getUniqueId().toString()+".image") == null) {
 			try {
-				image = ImageIO.read(new URL("http://4.bp.blogspot.com/-tjadUZwK6s8/UTpGgK7G1cI/AAAAAAABF2s/L2dNg7-UQ4E/s1600/POKEMON+%252899%2529.png"));
+				String UrlORDir = "http://4.bp.blogspot.com/-tjadUZwK6s8/UTpGgK7G1cI/AAAAAAABF2s/L2dNg7-UQ4E/s1600/POKEMON+%252899%2529.png";
+				image = ImageIO.read(new URL(UrlORDir));
+				plugin.getConfig().set(path,UrlORDir);
+				plugin.saveConfig();
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
 			//Keine Ahnung ob er das Bild laden kann, müssen wir austesten
-			plugin.getConfig().set(path,image);
-			plugin.saveConfig();
 
-		}else image = (BufferedImage) this.getConfig().get(player.getUniqueId().toString()+".image");
+		}else image = loadImagefromConfig(this.getConfig().getString(player.getUniqueId().toString()+".image"),player);
+
+
+
 
 		if(player.getInventory().getItemInMainHand().getType() == Material.WOODEN_AXE && e.getAction() == Action.LEFT_CLICK_BLOCK) {
 			Location l = Objects.requireNonNull(e.getClickedBlock()).getLocation();
@@ -54,7 +59,7 @@ public class Main extends JavaPlugin implements Listener{
 			player.sendMessage(image.getWidth()+" "+image.getHeight());
 			//player.sendMessage("The Z Axis is the width of the displayed picture, the X Axis is the height of the picture");
 		}
-		if(this.getConfig().get(path+".locations"+".firstloc") != null && this.getConfig().get(path+".locations"+".secondloc") != null) {
+		if(this.getConfig().get(path+".firstloc") != null && this.getConfig().get(path+".secondloc") != null) {
 			Location firstl = (Location) this.getConfig().get(path+".firstloc"),
 					 secondl = (Location) this.getConfig().get(path+".secondloc");
 			assert firstl != null;
@@ -63,7 +68,20 @@ public class Main extends JavaPlugin implements Listener{
 		}
 	}
 	
-
+	public BufferedImage loadImagefromConfig(String dir,Player player) {
+		String path = player.getUniqueId().toString()+".image";
+		BufferedImage image = null;
+		try {
+			if (!dir.startsWith("http") && !dir.startsWith("ftp") && !dir.startsWith("https")) {
+				image = ImageIO.read(new File(Objects.requireNonNull(this.getConfig().getString(path))));
+			} else {
+				image = ImageIO.read(new URL(Objects.requireNonNull(this.getConfig().getString(path))));
+			}
+		}catch(Exception e) {
+			player.sendMessage("Something went wrong while loading the image");
+		}
+		return image;
+	}
 	public static Main getPlugin() {
 		return plugin;
 	}
