@@ -36,6 +36,7 @@ public class ImageCommand implements CommandExecutor {
         }
         int width;
         int height;
+        assert image != null;
         try {
             width = args.length > 1 ? Integer.parseInt(args[1]) : image.getWidth();
             height = args.length > 2 ? Integer.parseInt(args[2]) : image.getHeight();
