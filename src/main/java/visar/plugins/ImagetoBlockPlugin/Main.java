@@ -6,7 +6,6 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 import javax.imageio.ImageIO;
 
@@ -30,15 +29,6 @@ public class Main extends JavaPlugin implements Listener{
 		Bukkit.getPluginManager().registerEvents(this, this);
 		getCommand("image").setExecutor(new ImageCommand());
 		getCommand("setdefaultimage").setExecutor(new defaultImageCommand());
-		try {
-		//image = ImageIO.read(new File("C:\\Users\\visar\\OneDrive\\Dokumente\\pikachu.jpg"));
-			//image = ImageIO.read(new File("C:\\Users\\Simon\\Desktop\\Visar Server\\butterfly.png"));
-			image = ImageIO.read(new URL("https://i.imgur.com/FUx3ACH.jpg"));
-		
-		}catch(IOException e) {
-			getServer().broadcastMessage("Didn't work");
-		}
-		
 		
 	} 
 	@EventHandler
