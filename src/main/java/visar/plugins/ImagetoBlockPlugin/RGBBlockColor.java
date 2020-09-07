@@ -32,32 +32,44 @@ public class RGBBlockColor {
         }
         
         if (hue<15||hue>=345) {
-            return Material.RED_CONCRETE;
+            return saturation<50?Material.PINK_TERRACOTTA:(saturation<75?MatRED_C.RED_TERRACOTTA:Material.RED_CONCRETE);
         }
-        if (hue<45) {
-            return bright<67?Material.BROWN_CONCRETE:Material.ORANGE_CONCRETE;
+        if (hue<45) { //könnte Tweaking nötig sein
+            if (bright<33) {
+                return Material.GRAY_TERRACOTTA;
+            }
+            if (bright<50) {
+                return saturation<66?Material.BROWN_TERRACOTTA: Material.BROWN_CONCRETE;
+            }
+            if (bright<75) {
+                return saturation<50?Material.LIGHT_GRAY_TERRACOTTA:Material.TERRACOTTA;
+            }
+            return saturation<33?Material.WHITE_TERRACOTTA:(saturation<67?Material.ORANGE_TERRACOTTA:Material.ORANGE_CONCRETE);
         }
         if (hue<75) {
-            return Material.YELLOW_CONCRETE;
+            return bright<75?Marial.Y.YELLOW_TERRACOTTA:Material.YELLOW_CONCRETE;
         }
         if (hue<105) {
             return Material.LIME_CONCRETE;
         }
-        if (hue<145) {
-            return Material.GREEN_CONCRETE;
+        if (hue<150) {
+            return saturation<50?Material.GREEN_TERRACOTTA:(saturation<75?Material.LIME_TERRACOTTA:Material.GREEN_CONCRETE);
         }
-        if (hue<210) {
-            return Material.CYAN_CONCRETE;
+        if (hue<195) {
+            return saturation<33?Material.CYAN_TERRACOTTA:Material.CYAN_CONCRETE;
+        }
+        if (hue<225) {
+            return Material.LIGHT_BLUE_CONCRETE;
         }
         if (hue<255) {
-            return Material.BLUE_CONCRETE;
+            return saturation<50?Material.LIGHT_BLUE_TERRACOTTA:Material.BLUE_CONCRETE; //Schön
         }
         if (hue<285) {
-            return Material.PURPLE_CONCRETE;
+            return saturation<50?MatPURPL.BLUE_TERRACOTTA:Material.PURPLE_CONCRETE; //Schön
         }
         if (hue<315) {
             return Material.MAGENTA_CONCRETE;
         }
-        return Material.PINK_CONCRETE;
+        return bright<50?Material.PURPLE_TERRACOTTA:(bright<75?Marial.P.MAGENTA_TERRACOTTA:Material.PINK_CONCRETE);
     }
 }
