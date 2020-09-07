@@ -37,6 +37,7 @@ public class DefaultImageCommand implements CommandExecutor {
 		   }
 		   plugin.getConfig().set(path,image);
 		   plugin.saveConfig();
+
 		   
 	   }
 	   try {
