@@ -1,8 +1,5 @@
 package visar.plugins.ImagetoBlockPlugin;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -13,7 +10,6 @@ import javax.imageio.ImageIO;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -60,6 +56,8 @@ public class Main extends JavaPlugin implements Listener{
 		if(this.getConfig().get(path+".locations"+".firstloc") != null && this.getConfig().get(path+".locations"+".secondloc") != null) {
 			Location firstl = (Location) this.getConfig().get(path+".firstloc"),
 					 secondl = (Location) this.getConfig().get(path+".secondloc");
+			assert firstl != null;
+			assert secondl != null;
 			ImageRenderer.renderImage(firstl,secondl,image,player);
 		}
 	}
