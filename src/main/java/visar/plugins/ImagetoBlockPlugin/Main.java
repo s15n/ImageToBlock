@@ -26,7 +26,7 @@ public class Main extends JavaPlugin implements Listener{
 		plugin = this;
 		Bukkit.getPluginManager().registerEvents(this, this);
 		Objects.requireNonNull(getCommand("image")).setExecutor(new ImageCommand());
-		Objects.requireNonNull(getCommand("setdefaultimage")).setExecutor(new defaultImageCommand());
+		Objects.requireNonNull(getCommand("setdefaultimage")).setExecutor(new DefaultImageCommand());
 		
 	} 
 	@EventHandler
