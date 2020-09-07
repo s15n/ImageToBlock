@@ -16,8 +16,9 @@ public class DefaultImageCommand implements CommandExecutor {
 
 	   if(!(sender instanceof Player)) return false;
 	   Player player = (Player) sender;
-	   if(args.length > 1) {
+	   if(args.length < 1) {
 		   player.sendMessage("§cUse /setdefaultimage <URL or File Path>");
+		   return false;
 	   }    
 	   Main plugin = Main.getPlugin();
 	   String path = player.getUniqueId().toString()+".image";
