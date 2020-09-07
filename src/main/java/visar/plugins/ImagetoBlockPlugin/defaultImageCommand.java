@@ -32,8 +32,8 @@ public class defaultImageCommand implements CommandExecutor {
 		   try {
 			   image = ImageIO.read(new URL("http://4.bp.blogspot.com/-tjadUZwK6s8/UTpGgK7G1cI/AAAAAAABF2s/L2dNg7-UQ4E/s1600/POKEMON+%252899%2529.png"));
 		   } catch (IOException e) {
-			   // TODO Auto-generated catch block
 			   e.printStackTrace();
+			   return false;
 		   }
 		   plugin.getConfig().set(path,image);
 		   
