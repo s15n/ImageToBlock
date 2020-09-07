@@ -2,7 +2,7 @@ package visar.plugins.ImagetoBlockPlugin;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 
 public class ImageRenderer {
 
-    public static void renderImage(@NotNull Location Location1,@NotNull Location Location2, BufferedImage img, Player player) {
+    public static void renderImage(@NotNull Location Location1,@NotNull Location Location2, BufferedImage img, CommandSender player) {
 
         Main plugin = Main.getPlugin();
         String path = player.getUniqueId().toString()+".locations";
