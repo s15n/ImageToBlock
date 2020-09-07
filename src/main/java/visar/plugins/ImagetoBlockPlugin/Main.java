@@ -42,6 +42,7 @@ public class Main extends JavaPlugin implements Listener{
 			}
 			//Keine Ahnung ob er das Bild laden kann, müssen wir austesten
 			plugin.getConfig().set(path,image);
+			plugin.saveConfig();
 
 		}else image = (BufferedImage) this.getConfig().get(player.getUniqueId().toString()+".image");
 

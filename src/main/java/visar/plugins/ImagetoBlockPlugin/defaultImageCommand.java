@@ -36,6 +36,7 @@ public class defaultImageCommand implements CommandExecutor {
 			   return false;
 		   }
 		   plugin.getConfig().set(path,image);
+		   plugin.saveConfig();
 		   
 	   }
 	   try {
@@ -47,6 +48,7 @@ public class defaultImageCommand implements CommandExecutor {
 				 BufferedImage image = ImageIO.read(new URL(args[0]));
 				 plugin.getConfig().set(path,image);
 		   }
+		   plugin.saveConfig();
 		   player.sendMessage("§cImage successfully set");
 	  }catch(Exception e) {
 		  player.sendMessage("§cSomething went wrong! Try again");
