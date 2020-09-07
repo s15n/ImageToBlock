@@ -5,7 +5,7 @@ api-version: 1.16
 commands:
   image:
     description: generates image
-    usage: /image <URL or File Path> [width] [height] or /image <URL or File Path>
+    usage: /image <URL or File Path> [width] [height]
   setdefaultimage:
     description: sets default image to preferred image
     usage: /setdefaultimage <URL or File Path> 
