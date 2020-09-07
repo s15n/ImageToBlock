@@ -17,6 +17,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class Main extends JavaPlugin implements Listener{
 	public static BufferedImage image = null;
@@ -39,14 +42,14 @@ public class Main extends JavaPlugin implements Listener{
 			try {
 				String UrlORDir = "http://4.bp.blogspot.com/-tjadUZwK6s8/UTpGgK7G1cI/AAAAAAABF2s/L2dNg7-UQ4E/s1600/POKEMON+%252899%2529.png";
 				image = ImageIO.read(new URL(UrlORDir));
-				plugin.getConfig().set(path,UrlORDir);
-				plugin.saveConfig();
+				this.getConfig().set(path,UrlORDir);
+				this.saveConfig();
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
 			//Keine Ahnung ob er das Bild laden kann, müssen wir austesten
 
-		}else image = loadImagefromConfig(this.getConfig().getString(player.getUniqueId().toString()+".image"),player);
+		}else image = loadImageFromConfig(this.getConfig().getString(player.getUniqueId().toString()+".image"),player);
 
 
 
@@ -67,15 +70,19 @@ public class Main extends JavaPlugin implements Listener{
 			ImageRenderer.renderImage(firstl,secondl,image,player);
 		}
 	}
-	
-	public BufferedImage loadImagefromConfig(String dir,Player player) {
+
+	@Contract("null,_ -> null")
+	public static BufferedImage loadImageFromConfig(@Nullable String dir, @NotNull Player player) {
+		if(dir == null) {
+			return null;
+		}
 		String path = player.getUniqueId().toString()+".image";
 		BufferedImage image = null;
 		try {
 			if (!dir.startsWith("http") && !dir.startsWith("ftp") && !dir.startsWith("https")) {
-				image = ImageIO.read(new File(Objects.requireNonNull(this.getConfig().getString(path))));
+				image = ImageIO.read(new File(Objects.requireNonNull(plugin.getConfig().getString(path))));
 			} else {
-				image = ImageIO.read(new URL(Objects.requireNonNull(this.getConfig().getString(path))));
+				image = ImageIO.read(new URL(Objects.requireNonNull(plugin.getConfig().getString(path))));
 			}
 		}catch(Exception e) {
 			player.sendMessage("Something went wrong while loading the image");

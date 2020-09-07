@@ -54,7 +54,7 @@ public class RGBBlockColor {
             return Material.LIME_CONCRETE;
         }
         if (hue<150) {
-            return saturation<50?Material.GREEN_TERRACOTTA:(saturation<75?Material.LIME_TERRACOTTA:Material.GREEN_CONCRETE);
+            return bright<50?Material.LIME_TERRACOTTA:(bright<83?Material.GREEN_CONCRETE:Material.GREEN_TERRACOTTA);
         }
         if (hue<195) {
             return saturation<33?Material.CYAN_TERRACOTTA:Material.CYAN_CONCRETE;

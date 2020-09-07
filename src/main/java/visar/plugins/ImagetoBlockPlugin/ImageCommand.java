@@ -21,22 +21,41 @@ public class ImageCommand implements CommandExecutor {
             return false;
         }
         Player player = (Player) sender;
-        if (args.length < 1) {
+        /*if (args.length < 1) {
             player.sendMessage("§cPlease provide an image! Use §f/image <URL> [width] [height]");
-        }
+        }*/
         BufferedImage image = null;
-        try {
-            if (args[0].startsWith("http") || args[0].startsWith("ftp")) {
-                image = ImageIO.read(new URL(args[0]));
-            } else {
-                image = ImageIO.read(new File(args[0]));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         int width;
         int height;
-        assert image != null;
+        try {
+            if(args.length>0) {
+                Integer.parseInt(args[0]);
+            }
+            image = Main.loadImageFromConfig(Main.getPlugin().getConfig().getString(player.getUniqueId().toString() + ".locations"), player);
+            if(image==null) {
+                player.sendMessage("§cThere is no pre-defined image available.");
+                player.sendMessage("§cPlease provide one using : §f/setdefaultimage <path>");
+                return false;
+            }
+            width = args.length > 0 ? Integer.parseInt(args[0]) : image.getWidth();
+            height = args.length > 1 ? Integer.parseInt(args[1]) : image.getHeight();
+            ImageRenderer.renderImage(player.getLocation(),player.getLocation().clone().add(width,0,height),image,player);
+            return true;
+        } catch (NumberFormatException e) {
+            try {
+                if (args[0].startsWith("http") || args[0].startsWith("ftp")) {
+                    image = ImageIO.read(new URL(args[0]));
+                } else {
+                    image = ImageIO.read(new File(args[0]));
+                }
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
+        if(image==null) {
+            player.sendMessage("§cCould not find an image at the given path!");
+            return false;
+        }
         try {
             width = args.length > 1 ? Integer.parseInt(args[1]) : image.getWidth();
             height = args.length > 2 ? Integer.parseInt(args[2]) : image.getHeight();
