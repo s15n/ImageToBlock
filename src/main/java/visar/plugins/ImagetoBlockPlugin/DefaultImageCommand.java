@@ -12,12 +12,11 @@ public class DefaultImageCommand implements CommandExecutor {
 
    @Override
     public boolean onCommand(@NotNull CommandSender sender,@NotNull  Command command,@NotNull  String label,@NotNull String[] args) {
-
-
 	   if(!(sender instanceof Player)) return false;
 	   Player player = (Player) sender;
-	   if(args.length > 1) {
+	   if(args.length < 1) {
 		   player.sendMessage("§cUse /setdefaultimage <URL or File Path>");
+		   return false;
 	   }    
 	   Main plugin = Main.getPlugin();
 	   String path = player.getUniqueId().toString()+".image";
@@ -30,13 +29,13 @@ public class DefaultImageCommand implements CommandExecutor {
 	   }
 	   try {
 		   String UrlORDir = args[0];
-		   if (!args[0].startsWith("http") && !args[0].startsWith("ftp") && !args[0].startsWith("https")) {
+		   if (!args[0].startsWith("http") && !args[0].startsWith("ftp")) {
 		   		plugin.getConfig().set(path,UrlORDir);
 		   } else {
 				 plugin.getConfig().set(path,UrlORDir);
 		   }
 		   plugin.saveConfig();
-		   player.sendMessage("§cImage successfully set");
+		   player.sendMessage("§aImage successfully set");
 	  }catch(Exception e) {
 		  player.sendMessage("§cSomething went wrong! Try again");
 		  return false;
