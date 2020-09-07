@@ -1,6 +1,7 @@
 package visar.plugins.ImagetoBlockPlugin;
 
 import java.awt.Color;
+import org.jetbrains.annotations.NotNull;
 
 import org.bukkit.Material;
  
@@ -8,7 +9,7 @@ public class RGBBlockColor {
 	private static final int BRIGHTNESS_LIMIT = 25;
     private static final int SATURATION_LIMIT = 25;
     
-    public static Material getClosestBlockValue(Color color) {
+    public static Material getClosestBlockValue(@NotNull Color color) {
         float[] hsb = Color.RGBtoHSB(color.getRed(),color.getGreen(),color.getBlue(),null);
         int hue = (int) (hsb[0]*360);
         int saturation = (int) (hsb[1]*100);
