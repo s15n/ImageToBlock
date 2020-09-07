@@ -25,13 +25,14 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin implements Listener{
-	static BufferedImage image = null;
-							
+	public static BufferedImage image = null;
+	private static Main plugin;						
 	@Override
 	public void onEnable() {
+		plugin = this;
 		Bukkit.getPluginManager().registerEvents(this, this);
 		getCommand("image").setExecutor(new ImageCommand());
-		
+		getCommand("setdefaultimage").setExecutor(new defaultimageCommand());
 		try {
 		//image = ImageIO.read(new File("C:\\Users\\visar\\OneDrive\\Dokumente\\pikachu.jpg"));
 			//image = ImageIO.read(new File("C:\\Users\\Simon\\Desktop\\Visar Server\\butterfly.png"));
@@ -104,5 +105,7 @@ public class Main extends JavaPlugin implements Listener{
 		ImageIO.write(resizedImage,"png",imageFile);
 		return resizedImage;
 	}
-	
+	public static Main getPlugin() {
+		return plugin;
+	}
 }
