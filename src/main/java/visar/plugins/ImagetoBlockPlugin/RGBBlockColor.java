@@ -33,7 +33,7 @@ public class RGBBlockColor {
         }
         
         if (hue<15||hue>=345) {
-            return saturation<50?Material.PINK_TERRACOTTA:(saturation<75?MatRED_C.RED_TERRACOTTA:Material.RED_CONCRETE);
+            return saturation<50?Material.PINK_TERRACOTTA:(saturation<75?Material.RED_TERRACOTTA:Material.RED_CONCRETE);
         }
         if (hue<45) { //könnte Tweaking nötig sein
             if (bright<33) {
@@ -48,7 +48,7 @@ public class RGBBlockColor {
             return saturation<33?Material.WHITE_TERRACOTTA:(saturation<67?Material.ORANGE_TERRACOTTA:Material.ORANGE_CONCRETE);
         }
         if (hue<75) {
-            return bright<75?Marial.Y.YELLOW_TERRACOTTA:Material.YELLOW_CONCRETE;
+            return bright<75?Material.YELLOW_TERRACOTTA:Material.YELLOW_CONCRETE;
         }
         if (hue<105) {
             return Material.LIME_CONCRETE;
@@ -66,11 +66,11 @@ public class RGBBlockColor {
             return saturation<50?Material.LIGHT_BLUE_TERRACOTTA:Material.BLUE_CONCRETE; //Schön
         }
         if (hue<285) {
-            return saturation<50?MatPURPL.BLUE_TERRACOTTA:Material.PURPLE_CONCRETE; //Schön
+            return saturation<50?Material.BLUE_TERRACOTTA:Material.PURPLE_CONCRETE; //Schön
         }
         if (hue<315) {
             return Material.MAGENTA_CONCRETE;
         }
-        return bright<50?Material.PURPLE_TERRACOTTA:(bright<75?Marial.P.MAGENTA_TERRACOTTA:Material.PINK_CONCRETE);
+        return bright<50?Material.PURPLE_TERRACOTTA:(bright<75?Material.MAGENTA_TERRACOTTA:Material.PINK_CONCRETE);
     }
 }
