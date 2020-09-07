@@ -32,7 +32,7 @@ public class Main extends JavaPlugin implements Listener{
 		plugin = this;
 		Bukkit.getPluginManager().registerEvents(this, this);
 		getCommand("image").setExecutor(new ImageCommand());
-		getCommand("setdefaultimage").setExecutor(new defaultimageCommand());
+		getCommand("setdefaultimage").setExecutor(new defaultImageCommand());
 		try {
 		//image = ImageIO.read(new File("C:\\Users\\visar\\OneDrive\\Dokumente\\pikachu.jpg"));
 			//image = ImageIO.read(new File("C:\\Users\\Simon\\Desktop\\Visar Server\\butterfly.png"));
