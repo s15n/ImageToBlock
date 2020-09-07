@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 
 public class ImageRenderer {
 
-    public static void renderImage(@NotNull Location Location1,@NotNull Location Location2, BufferedImage img, CommandSender player) {
+    public static void renderImage(@NotNull Location Location1,@NotNull Location Location2,@NotNull BufferedImage img,@Nullable CommandSender player) {
 
         Main plugin = Main.getPlugin();
         String path = player.getUniqueId().toString()+".locations";
@@ -36,7 +36,7 @@ public class ImageRenderer {
             plugin.getConfig().set(path+".firstloc",null);
             plugin.getConfig().set(path+".secondloc",null);
         } catch (Exception e1) {
-            player.sendMessage("Problems while resizing picture");
+            if(player!=null) player.sendMessage("Problems while resizing picture");
         }
 
     }
