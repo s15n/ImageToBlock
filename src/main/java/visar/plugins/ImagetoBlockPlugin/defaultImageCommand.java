@@ -10,13 +10,15 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 
 public class defaultImageCommand implements CommandExecutor {
 
    @Override
-    public boolean onCommand( CommandSender sender,  Command command,  String label, String[] args) {
-	       	
+    public boolean onCommand(@NotNull CommandSender sender,@NotNull  Command command,@NotNull  String label,@NotNull String[] args) {
+
+
 	   if(!(sender instanceof Player)) return false;
 	   Player player = (Player) sender;
 	   if(args.length > 1) {
@@ -33,20 +35,19 @@ public class defaultImageCommand implements CommandExecutor {
 			   // TODO Auto-generated catch block
 			   e.printStackTrace();
 		   }
-		   //Keine Ahnung ob er das Bild laden kann, müssen wir austesten
 		   plugin.getConfig().set(path,image);
 		   
 	   }
 	   try {
-        
-		  if (args[0].startsWith("http") || args[0].startsWith("ftp")) {
-                BufferedImage image = ImageIO.read(new URL(args[0]));
-                plugin.getConfig().set(path,image);
-		  } else {
-			   	BufferedImage image = ImageIO.read(new File(args[0]));
-                plugin.getConfig().set(path,image);
-          }
-		  player.sendMessage("§cImage successfully set"); 
+
+		   if (!args[0].startsWith("http") && !args[0].startsWith("ftp")) {
+					BufferedImage image = ImageIO.read(new File(args[0]));
+				 plugin.getConfig().set(path,image);
+		   } else {
+				 BufferedImage image = ImageIO.read(new URL(args[0]));
+				 plugin.getConfig().set(path,image);
+		   }
+		   player.sendMessage("§cImage successfully set");
 	  }catch(Exception e) {
 		  player.sendMessage("§cSomething went wrong! Try again");
 		  return false;

@@ -23,6 +23,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin implements Listener{
 	public static BufferedImage image = null;
+
 	private static Main plugin;						
 	@Override
 	public void onEnable() {
