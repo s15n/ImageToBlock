@@ -41,7 +41,7 @@ public class defaultImageCommand implements CommandExecutor {
 	   try {
 
 		   if (!args[0].startsWith("http") && !args[0].startsWith("ftp")) {
-					BufferedImage image = ImageIO.read(new File(args[0]));
+		   		BufferedImage image = ImageIO.read(new File(args[0]));
 				 plugin.getConfig().set(path,image);
 		   } else {
 				 BufferedImage image = ImageIO.read(new URL(args[0]));
@@ -52,7 +52,7 @@ public class defaultImageCommand implements CommandExecutor {
 		  player.sendMessage("§cSomething went wrong! Try again");
 		  return false;
       }
-      
+
       return false;
     }
 

@@ -54,58 +54,17 @@ public class Main extends JavaPlugin implements Listener{
 			if(this.getConfig().get(path+".firstloc") == null) {
 				this.getConfig().set(path+".firstloc",l);
 			}else this.getConfig().set(path+".secondloc",l);
-			
-			
 			player.sendMessage(image.getWidth()+" "+image.getHeight());
-			//player.sendMessage("The X Axis is the width of the displayed picture, the Z Axis is the height of the picture");
+			//player.sendMessage("The Z Axis is the width of the displayed picture, the X Axis is the height of the picture");
 		}
 		if(this.getConfig().get(path+".locations"+".firstloc") != null && this.getConfig().get(path+".locations"+".secondloc") != null) {
 			Location firstl = (Location) this.getConfig().get(path+".firstloc"),
 					 secondl = (Location) this.getConfig().get(path+".secondloc");
-
-			assert firstl != null;
-			assert secondl != null;
-			int bigX = Math.max(firstl.getBlockX(), secondl.getBlockX()),
-				smallX = bigX == firstl.getBlockX() ? secondl.getBlockX() : firstl.getBlockX(),
-				bigZ = Math.max(firstl.getBlockZ(), secondl.getBlockZ()),
-				smallZ = bigZ == firstl.getBlockZ() ? secondl.getBlockZ() : firstl.getBlockZ();
-			try {
-				BufferedImage resizedImage = resizingImage(image,(bigX-smallX),(bigZ-smallZ));
-				System.out.println("x - " + (bigX - smallX));
-				System.out.println("z - " + (bigZ - smallZ));
-				int row = 0;
-				for(int i = smallZ; i<bigZ; i++) {
-					int column = 0;
-					for(int j=smallX; j<bigX; j++) {
-						Location l = new  Location(firstl.getWorld(), j, firstl.getBlockY(), i);
-						Block b = l.getBlock();
-						b.setType(RGBBlockColor.getClosestBlockValue(new Color(resizedImage.getRGB(column, row))));
-						column++;
-					}
-					row++;
-				}
-				this.getConfig().set(path+".firstloc",null);
-				this.getConfig().set(path+".secondloc",null);
-			} catch (Exception e1) {
-				player.sendMessage("Problems while resizing picture");
-			}
-					
-										
+			ImageRenderer.renderImage(firstl,secondl,image,player);
 		}
 	}
 	
-	private static BufferedImage resizingImage(BufferedImage srcimage,int new_width, int new_height) {
-		
-		BufferedImage resizedImage = new BufferedImage(new_width, new_height, srcimage.getType());
-		Graphics2D g2 = resizedImage.createGraphics();
-		g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-		g2.drawImage(srcimage, 0, 0, new_width, new_height, null);
-		g2.dispose();
 
-		/*File imageFile = new File("C:/users/Simon/Desktop/Visar Server/test_resized.png");
-		ImageIO.write(resizedImage,"png",imageFile);*/
-		return resizedImage;
-	}
 	public static Main getPlugin() {
 		return plugin;
 	}
