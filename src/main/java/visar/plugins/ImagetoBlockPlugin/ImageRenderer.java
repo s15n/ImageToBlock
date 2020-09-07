@@ -3,22 +3,21 @@ package visar.plugins.ImagetoBlockPlugin;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class ImageRenderer {
 
-    public static void renderImage(Location Location1, Location Location2, BufferedImage img, Player player) {
+    public static void renderImage(@NotNull Location Location1,@NotNull Location Location2, BufferedImage img, Player player) {
 
-        assert Location1 != null;
-        assert Location2 != null;
         Main plugin = Main.getPlugin();
         String path = player.getUniqueId().toString()+".locations";
         int bigX = Math.max(Location1.getBlockX(), Location2.getBlockX()),
-                smallX = bigX == Location1.getBlockX() ? Location2.getBlockX() : Location1.getBlockX(),
-                bigZ = Math.max(Location1.getBlockZ(), Location2.getBlockZ()),
-                smallZ = bigZ == Location1.getBlockZ() ? Location2.getBlockZ() : Location1.getBlockZ();
+            smallX = bigX == Location1.getBlockX() ? Location2.getBlockX() : Location1.getBlockX(),
+            bigZ = Math.max(Location1.getBlockZ(), Location2.getBlockZ()),
+            smallZ = bigZ == Location1.getBlockZ() ? Location2.getBlockZ() : Location1.getBlockZ();
         try {
             BufferedImage resizedImage = resizingImage(img,(bigX-smallX),(bigZ-smallZ));
             System.out.println("x - " + (bigX - smallX));
