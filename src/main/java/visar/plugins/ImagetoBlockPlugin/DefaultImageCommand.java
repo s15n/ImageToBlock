@@ -1,6 +1,4 @@
 package visar.plugins.ImagetoBlockPlugin;
-import java.awt.image.BufferedImage;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -29,11 +27,7 @@ public class DefaultImageCommand implements CommandExecutor {
 	   }
 	   try {
 		   String UrlORDir = args[0];
-		   if (!args[0].startsWith("http") && !args[0].startsWith("ftp")) {
-		   		plugin.getConfig().set(path,UrlORDir);
-		   } else {
-				 plugin.getConfig().set(path,UrlORDir);
-		   }
+		   plugin.getConfig().set(path,UrlORDir);
 		   plugin.saveConfig();
 		   player.sendMessage("§aImage successfully set");
 	  }catch(Exception e) {
