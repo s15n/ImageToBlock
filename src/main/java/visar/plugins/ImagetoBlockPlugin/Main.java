@@ -31,7 +31,7 @@ public class Main extends JavaPlugin implements Listener{
 		Bukkit.getPluginManager().registerEvents(this, this);
 		Objects.requireNonNull(getCommand("image")).setExecutor(new ImageCommand());
 		Objects.requireNonNull(getCommand("setdefaultimage")).setExecutor(new DefaultImageCommand());
-		
+
 	} 
 	@EventHandler
 	public void woodAxeRightClick(PlayerInteractEvent e) {
@@ -50,9 +50,6 @@ public class Main extends JavaPlugin implements Listener{
 			//Keine Ahnung ob er das Bild laden kann, müssen wir austesten
 
 		}else image = loadImageFromConfig(this.getConfig().getString(player.getUniqueId().toString()+".image"),player);
-
-
-
 
 		if(player.getInventory().getItemInMainHand().getType() == Material.WOODEN_AXE && e.getAction() == Action.LEFT_CLICK_BLOCK) {
 			Location l = Objects.requireNonNull(e.getClickedBlock()).getLocation();
