@@ -20,7 +20,7 @@ public class VideoImport {
                 System.out.println("File overwritten");
             }
             BufferedImage img = AWTFrameGrab.getFrame(video, i);
-            ImageIO.write(img,".png",output);
+            ImageIO.write(img,"png",output);
         }
     }
 }
