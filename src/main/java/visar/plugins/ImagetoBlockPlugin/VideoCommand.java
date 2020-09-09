@@ -29,14 +29,14 @@ public class VideoCommand implements CommandExecutor {
             return false;
         }
         String path = player.getUniqueId().toString() + ".video";
-        if (args[0] ) {
-            renderVideo(args[0],player);
-        } else {
+        if (isInteger(args[0])) {
             if(plugin.getConfig().getString(path) == null) {
                 player.sendMessage("§cYou need to first set a default video, to do that type /setdefaultvideo <File Path>");
                 return false;
             }
             renderVideo(plugin.getConfig().getString(path),player);
+        } else {
+            renderVideo(args[0],player);
         }
 
         return false;
@@ -55,7 +55,13 @@ public class VideoCommand implements CommandExecutor {
             player.sendMessage("§cSomething went wrong while trying to show the video");
         }
     }
-    private boolean isNumeric(String s) {
-        
-   
+    private boolean isInteger(String s) {
+        boolean isNumber = true;
+        try {
+            Integer.parseInt(s);
+        }catch(NumberFormatException e) {
+            isNumber = false;
+        }
+        return isNumber; 
+    } 
 }
