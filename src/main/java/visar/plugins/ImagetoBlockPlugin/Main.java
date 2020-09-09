@@ -17,7 +17,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+//import org.jcodec.api.JCodecException;
 import org.jcodec.api.JCodecException;
+import org.jcodec.api.awt.AWTFrameGrab;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -35,10 +37,9 @@ public class Main extends JavaPlugin implements Listener{
 
 	} 
 	@EventHandler
-	public void woodAxeRightClick(PlayerInteractEvent e) throws IOException, JCodecException {
+	public void woodAxeRightClick(PlayerInteractEvent e) throws IOException {
 		Player player = e.getPlayer();
 		String path = player.getUniqueId().toString()+".locations";
-		VideoImport.grabFrame(new File("C:\\Users\\visar\\Downloads\\samplevideo.mp4"),"C:\\Users\\visar\\OneDrive\\Dokumente",20);
 		if(plugin.getConfig().get(player.getUniqueId().toString()+".image") == null) {
 			try {
 				String UrlORDir = "http://4.bp.blogspot.com/-tjadUZwK6s8/UTpGgK7G1cI/AAAAAAABF2s/L2dNg7-UQ4E/s1600/POKEMON+%252899%2529.png";
@@ -65,7 +66,9 @@ public class Main extends JavaPlugin implements Listener{
 					 secondl = (Location) this.getConfig().get(path+".secondloc");
 			assert firstl != null;
 			assert secondl != null;
-			ImageRenderer.renderImage(firstl,secondl,image,player);
+			//ImageRenderer.renderImage(firstl,secondl,image,player);
+			VideoTask videoTask = new VideoTask(firstl,secondl,player,19,11,60);
+			videoTask.setId(Bukkit.getScheduler().runTaskTimer(this,videoTask,10L,1L).getTaskId());
 		}
 	}
 

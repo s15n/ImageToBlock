@@ -35,12 +35,13 @@ public class ImageRenderer {
             plugin.getConfig().set(path+".firstloc",null);
             plugin.getConfig().set(path+".secondloc",null);
         } catch (Exception e1) {
+            e1.printStackTrace();
             player.sendMessage("Problems while resizing picture");
         }
 
     }
 
-    private static BufferedImage resizingImage(BufferedImage srcimage,int new_width, int new_height) {
+    static BufferedImage resizingImage(BufferedImage srcimage,int new_width, int new_height) {
 
         BufferedImage resizedImage = new BufferedImage(new_width, new_height, srcimage.getType());
         Graphics2D g2 = resizedImage.createGraphics();
