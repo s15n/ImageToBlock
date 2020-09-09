@@ -18,7 +18,9 @@ public class ImageRenderer {
             bigZ = Math.max(Location1.getBlockZ(), Location2.getBlockZ()),
             smallZ = bigZ == Location1.getBlockZ() ? Location2.getBlockZ() : Location1.getBlockZ();
         try {
-            //BufferedImage resizedImage = resizingImage(img,(bigX-smallX),(bigZ-smallZ));
+            if((bigX-smallX) != img.getWidth() && (bigZ-smallZ) != img.getWidth()) {
+                BufferedImage resizedImage = resizingImage(img, (bigX - smallX), (bigZ - smallZ));
+            }
             /*System.out.println("x - " + (bigX - smallX));
             System.out.println("z - " + (bigZ - smallZ));*/
             int row = 0;
@@ -41,7 +43,7 @@ public class ImageRenderer {
 
     }
 
-    static BufferedImage resizingImage(BufferedImage srcimage,int new_width, int new_height) {
+    public static BufferedImage resizingImage(BufferedImage srcimage,int new_width, int new_height) {
 
         BufferedImage resizedImage = new BufferedImage(new_width, new_height, srcimage.getType());
         Graphics2D g2 = resizedImage.createGraphics();

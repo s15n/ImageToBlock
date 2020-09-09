@@ -17,9 +17,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-//import org.jcodec.api.JCodecException;
-import org.jcodec.api.JCodecException;
-import org.jcodec.api.awt.AWTFrameGrab;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -34,6 +31,9 @@ public class Main extends JavaPlugin implements Listener{
 		Bukkit.getPluginManager().registerEvents(this, this);
 		Objects.requireNonNull(getCommand("image")).setExecutor(new ImageCommand());
 		Objects.requireNonNull(getCommand("setdefaultimage")).setExecutor(new DefaultImageCommand());
+		Objects.requireNonNull(getCommand("video")).setExecutor(new VideoCommand());
+		Objects.requireNonNull(getCommand("setdefaultvideo")).setExecutor(new DefaultImageCommand());
+
 
 	} 
 	@EventHandler
@@ -49,7 +49,6 @@ public class Main extends JavaPlugin implements Listener{
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
-			//Keine Ahnung ob er das Bild laden kann, müssen wir austesten
 
 		}else image = loadImageFromConfig(this.getConfig().getString(player.getUniqueId().toString()+".image"),player);
 
@@ -59,16 +58,15 @@ public class Main extends JavaPlugin implements Listener{
 				this.getConfig().set(path+".firstloc",l);
 			}else this.getConfig().set(path+".secondloc",l);
 			player.sendMessage(image.getWidth()+" "+image.getHeight());
-			//player.sendMessage("The Z Axis is the width of the displayed picture, the X Axis is the height of the picture");
+			player.sendMessage("The Z Axis is the width of the displayed picture, the X Axis is the height of the picture");
 		}
 		if(this.getConfig().get(path+".firstloc") != null && this.getConfig().get(path+".secondloc") != null) {
 			Location firstl = (Location) this.getConfig().get(path+".firstloc"),
 					 secondl = (Location) this.getConfig().get(path+".secondloc");
 			assert firstl != null;
 			assert secondl != null;
-			//ImageRenderer.renderImage(firstl,secondl,ImageRenderer.resizingImage(image),player);
-			VideoTask videoTask = new VideoTask("./test.mp4",firstl,secondl,player,192,108,700);
-			videoTask.setId(Bukkit.getScheduler().runTaskTimer(this,videoTask,100L,1L).getTaskId());
+			ImageRenderer.renderImage(firstl,secondl,image,player);
+
 		}
 	}
 
