@@ -37,7 +37,7 @@ public class Main extends JavaPlugin implements Listener{
 
 	} 
 	@EventHandler
-	public void woodAxeRightClick(PlayerInteractEvent e) throws IOException {
+	public void woodAxeRightClick(PlayerInteractEvent e) {
 		Player player = e.getPlayer();
 		String path = player.getUniqueId().toString()+".locations";
 		if(plugin.getConfig().get(player.getUniqueId().toString()+".image") == null) {
@@ -66,9 +66,9 @@ public class Main extends JavaPlugin implements Listener{
 					 secondl = (Location) this.getConfig().get(path+".secondloc");
 			assert firstl != null;
 			assert secondl != null;
-			//ImageRenderer.renderImage(firstl,secondl,image,player);
-			VideoTask videoTask = new VideoTask(firstl,secondl,player,19,11,60);
-			videoTask.setId(Bukkit.getScheduler().runTaskTimer(this,videoTask,10L,1L).getTaskId());
+			//ImageRenderer.renderImage(firstl,secondl,ImageRenderer.resizingImage(image),player);
+			VideoTask videoTask = new VideoTask("./test.mp4",firstl,secondl,player,192,108,700);
+			videoTask.setId(Bukkit.getScheduler().runTaskTimer(this,videoTask,100L,1L).getTaskId());
 		}
 	}
 

@@ -18,16 +18,16 @@ public class ImageRenderer {
             bigZ = Math.max(Location1.getBlockZ(), Location2.getBlockZ()),
             smallZ = bigZ == Location1.getBlockZ() ? Location2.getBlockZ() : Location1.getBlockZ();
         try {
-            BufferedImage resizedImage = resizingImage(img,(bigX-smallX),(bigZ-smallZ));
-            System.out.println("x - " + (bigX - smallX));
-            System.out.println("z - " + (bigZ - smallZ));
+            //BufferedImage resizedImage = resizingImage(img,(bigX-smallX),(bigZ-smallZ));
+            /*System.out.println("x - " + (bigX - smallX));
+            System.out.println("z - " + (bigZ - smallZ));*/
             int row = 0;
             for(int i = smallZ; i<bigZ; i++) {
                 int column = 0;
                 for(int j=smallX; j<bigX; j++) {
                     Location l = new  Location(Location1.getWorld(), j, Location1.getBlockY(), i);
                     Block b = l.getBlock();
-                    b.setType(RGBBlockColor.getClosestBlockValue(new Color(resizedImage.getRGB(column, row))));
+                    b.setType(RGBBlockColor.getClosestBlockValue(new Color(/*resizedImage*/img.getRGB(column, row))));
                     column++;
                 }
                 row++;
