@@ -24,12 +24,12 @@ public class VideoCommand implements CommandExecutor {
         if (!(sender instanceof Player)) return false;
         Player player = (Player) sender;
 
-        if (args.length < 1) {
-            player.sendMessage("§cUse /video <File Path> or /video");
+        if (args.length < 3) {
+            player.sendMessage("§cUse /video <File Path> [width] [height] or /video [width] [height] ");
             return false;
         }
         String path = player.getUniqueId().toString() + ".video";
-        if (args.length == 1) {
+        if (args[0] ) {
             renderVideo(args[0],player);
         } else {
             if(plugin.getConfig().getString(path) == null) {
@@ -55,4 +55,7 @@ public class VideoCommand implements CommandExecutor {
             player.sendMessage("§cSomething went wrong while trying to show the video");
         }
     }
+    private boolean isNumeric(String s) {
+        
+   
 }
