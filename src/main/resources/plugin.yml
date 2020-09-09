@@ -11,7 +11,7 @@ commands:
     usage: /setdefaultimage <URL or File Path>
   video:
     description: generates video
-    usage: /video <File Path> or /video
+    usage: /video <File Path> [width] [height] or /video [width] [height]
   setdefaultvideo:
     description: sets default video
     usage: /setdefaultimage <File Path>
