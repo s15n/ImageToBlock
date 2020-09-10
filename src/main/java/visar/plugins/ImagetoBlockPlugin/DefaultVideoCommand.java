@@ -11,7 +11,7 @@ public class DefaultVideoCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(!(sender instanceof Player)) return false;
         Player player = (Player) sender;
-        if(args.length < 1) {
+        if(args.length != 1) {
             player.sendMessage("§cUse /setdefaultimage <File Path>");
             return false;
         }
