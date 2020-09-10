@@ -34,7 +34,9 @@ public class VideoCommand implements CommandExecutor {
             try {
                 File video = new File(filepath);
                 BufferedImage image = AWTFrameGrab.getFrame(video, 1);
-                renderVideo(filepath,player,image.getWidth(),image.getHeight());
+                FrameGrab grab = FrameGrab.createFrameGrab(NIOUtils.readableChannel(video));
+                DemuxerTrack vt = grab.getVideoTrack();
+                VideoRenderer.renderVideo(player.getLocation(),player.getLocation().clone().add(image.getWidth(),0,image.getHeight()),filepath,player,vt.getMeta().getTotalFrames());
             }catch(IOException | JCodecException ex) {
                 ex.printStackTrace();
                 player.sendMessage("§cYou need to first set a default image");
@@ -48,8 +50,11 @@ public class VideoCommand implements CommandExecutor {
                 return false;
             }
             try {
-                renderVideo(filepath,player,Integer.parseInt(args[0]), Integer.parseInt(args[1]));
-            }catch(NumberFormatException e) {
+                File video = new File(filepath);
+                FrameGrab grab = FrameGrab.createFrameGrab(NIOUtils.readableChannel(video));
+                DemuxerTrack vt = grab.getVideoTrack();
+                VideoRenderer.renderVideo(player.getLocation(),player.getLocation().clone().add(Double.parseDouble(args[0]),0,Double.parseDouble(args[1])),filepath,player,vt.getMeta().getTotalFrames());
+            }catch(NumberFormatException | IOException | JCodecException e) {
                 e.printStackTrace();
                 player.sendMessage("§cWidth and height need to be integers");
                 return false;
@@ -59,7 +64,9 @@ public class VideoCommand implements CommandExecutor {
             try {
                 File video = new File(args[0]);
                 BufferedImage image = AWTFrameGrab.getFrame(video,1);
-                renderVideo(args[0],player,image.getWidth(),image.getHeight());
+                FrameGrab grab = FrameGrab.createFrameGrab(NIOUtils.readableChannel(video));
+                DemuxerTrack vt = grab.getVideoTrack();
+                VideoRenderer.renderVideo(player.getLocation(),player.getLocation().clone().add(image.getWidth(),0,image.getHeight()),args[0],player,vt.getMeta().getTotalFrames());
             } catch (IOException | JCodecException e) {
                 e.printStackTrace();
                 player.sendMessage("§cFile does not exist!");
@@ -68,8 +75,12 @@ public class VideoCommand implements CommandExecutor {
 
         }else if(!isInteger(args[0]) && args.length == 3) {
             try {
-                renderVideo(args[0], player, Integer.parseInt(args[1]), Integer.parseInt(args[2]));
-            }catch(NumberFormatException e) {
+                File video = new File(args[0]);
+                BufferedImage image = AWTFrameGrab.getFrame(video,1);
+                FrameGrab grab = FrameGrab.createFrameGrab(NIOUtils.readableChannel(video));
+                DemuxerTrack vt = grab.getVideoTrack();
+                VideoRenderer.renderVideo(player.getLocation(),player.getLocation().clone().add(Double.parseDouble(args[1]),0,Double.parseDouble(args[2])),args[0],player,vt.getMeta().getTotalFrames());
+            }catch(NumberFormatException | IOException | JCodecException e) {
                 player.sendMessage("§c Width and height need to be integers");
                 return false;
             }
@@ -78,19 +89,7 @@ public class VideoCommand implements CommandExecutor {
         return false;
 
     }
-    private void renderVideo(String filepath,Player player,int width, int height) {
-        try {
-            File file = new File(filepath);
-            BufferedImage exampleImg = AWTFrameGrab.getFrame(file, 1);
-            FrameGrab grab = FrameGrab.createFrameGrab(NIOUtils.readableChannel(file));
-            DemuxerTrack vt = grab.getVideoTrack();
-            VideoTask videoTask = new VideoTask(filepath, player.getLocation(), player.getLocation().clone().add(width, 0, height), player, exampleImg.getWidth(), exampleImg.getHeight(), vt.getMeta().getTotalFrames());
-            videoTask.schedule(20L,1L);
-        } catch (IOException | JCodecException e) {
-            e.printStackTrace();
-            player.sendMessage("§cSomething went wrong while trying to show the video");
-        }
-    }
+
     private boolean isInteger(String s) {
         boolean isNumber = true;
         try {
