@@ -12,7 +12,7 @@ public class DefaultImageCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender,@NotNull  Command command,@NotNull  String label,@NotNull String[] args) {
 	   if(!(sender instanceof Player)) return false;
 	   Player player = (Player) sender;
-	   if(args.length < 1) {
+	   if(args.length != 1) {
 		   player.sendMessage("§cUse /setdefaultimage <URL or File Path>");
 		   return false;
 	   }    
