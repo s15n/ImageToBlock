@@ -76,7 +76,6 @@ public class VideoCommand implements CommandExecutor {
         }else if(!isInteger(args[0]) && args.length == 3) {
             try {
                 File video = new File(args[0]);
-                BufferedImage image = AWTFrameGrab.getFrame(video,1);
                 FrameGrab grab = FrameGrab.createFrameGrab(NIOUtils.readableChannel(video));
                 DemuxerTrack vt = grab.getVideoTrack();
                 VideoRenderer.renderVideo(player.getLocation(),player.getLocation().clone().add(Double.parseDouble(args[1]),0,Double.parseDouble(args[2])),args[0],player,vt.getMeta().getTotalFrames());
