@@ -61,12 +61,12 @@ public class Main extends JavaPlugin implements Listener{
 			player.sendMessage("The Z Axis is the width of the displayed picture, the X Axis is the height of the picture");
 		}
 		if(this.getConfig().get(path+".firstloc") != null && this.getConfig().get(path+".secondloc") != null) {
-			Location firstl = (Location) this.getConfig().get(path+".firstloc"),
-					 secondl = (Location) this.getConfig().get(path+".secondloc");
-			assert firstl != null;
-			assert secondl != null;
-			ImageRenderer.renderImage(firstl,secondl,image,player);
-
+			Location firstL = (Location) this.getConfig().get(path+".firstloc"),
+					 secondL = (Location) this.getConfig().get(path+".secondloc");
+			assert firstL != null;
+			assert secondL != null;
+			ImageRenderer.renderImage(firstL,secondL,image,player);
+			//VideoRenderer.renderVideo(firstL, secondL, "./test.pm4", player, 700);
 		}
 	}
 

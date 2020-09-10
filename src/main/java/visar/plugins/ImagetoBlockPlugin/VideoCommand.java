@@ -48,8 +48,7 @@ public class VideoCommand implements CommandExecutor {
             BufferedImage exampleImg = AWTFrameGrab.getFrame(file, 1);
             FrameGrab grab = FrameGrab.createFrameGrab(NIOUtils.readableChannel(file));
             DemuxerTrack vt = grab.getVideoTrack();
-            VideoTask videoTask = new VideoTask(filepath, player.getLocation(), player.getLocation().clone().add(100, 0, 100), player, exampleImg.getWidth(), exampleImg.getHeight(), vt.getMeta().getTotalFrames());
-            videoTask.setId(Bukkit.getScheduler().runTaskTimer(plugin, videoTask, 100L, 1L).getTaskId());
+            VideoRenderer.renderVideo(player.getLocation(), player.getLocation().clone().add(192,0,108),filepath,player,700);
         } catch (IOException | JCodecException e) {
             e.printStackTrace();
             player.sendMessage("§cSomething went wrong while trying to show the video");

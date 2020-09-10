@@ -11,9 +11,11 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 
-public class VideoTask implements Runnable {
-    private int i = 0;
-    private int id;
+public class VideoTask {
+    private int i_load = 0;
+    private int i_render = 0;
+    private int id_load;
+    private int id_render;
     private final int max;
     private final Location l1;
     private final Location l2;
@@ -38,7 +40,19 @@ public class VideoTask implements Runnable {
         this.frames = new BufferedImage[frames];
     }
 
-    @Override
+    public VideoTask(File file, Location l1, Location l2, Player p, int width, int height, int frames) {
+        this.l1=l1;
+        this.l2=l2;
+        this.p=p;
+        this.width=width;
+        this.height=height;
+        max=frames;
+        video = file;
+
+        this.frames = new BufferedImage[frames];
+    }
+
+    /*@Override
     public void run() {
         synchronized (video) {
             //time1 = System.currentTimeMillis();
@@ -49,21 +63,22 @@ public class VideoTask implements Runnable {
                 if(i<max) {
                     frames[i] = AWTFrameGrab.getFrame(video, i);
                 }
-                if(i>=0) {
+                if(i>=10) {
                     ImageRenderer.renderImage(l1, l2, frames[i-10], p);
                 }
             } catch (IOException | JCodecException e) {
                 e.printStackTrace();
             }
 
-        /*time2 = System.currentTimeMillis();
-        System.out.println("Frame: "+i+"/"+max+" - "+(time2 - time1)+"ms");*/
+        time2 = System.currentTimeMillis();
+        System.out.println("Frame: "+i+"/"+max+" - "+(time2 - time1)+"ms");
         }
-        i++;
-    }
 
-    public void setId(int id) {
-        this.id = id;
+    }*/
+
+    public void schedule(long delay, long period) {
+        this.id_load = Bukkit.getScheduler().runTaskTimer(Main.getPlugin(), new VideoImport(), delay, period).getTaskId();
+        this.id_render = Bukkit.getScheduler().runTaskTimer(Main.getPlugin(), new VideoRender(), delay+100, period).getTaskId();
     }
 
     private File getFile(String path) {
@@ -72,5 +87,45 @@ public class VideoTask implements Runnable {
             return new File(uri);
         }
         return new File(path);
+    }
+
+    public final class VideoImport implements Runnable {
+
+        /*public VideoImport(File file, Location l1, Location l2, Player p, int width, int height, int frames) {
+            super(file, l1, l2, p, width, height, frames);
+        }*/
+
+        @Override
+        public void run() {
+            synchronized (video) {
+                if (i_load-1 >= max) {
+                    Bukkit.getScheduler().cancelTask(id_load);
+                }
+                try {
+                    frames[i_load] = AWTFrameGrab.getFrame(video, i_load);
+                } catch (IOException | JCodecException e) {
+                    e.printStackTrace();
+                }
+                i_load++;
+            }
+        }
+    }
+
+    public final class VideoRender implements Runnable {
+
+        /*public VideoRender(File file, Location l1, Location l2, Player p, int width, int height, int frames) {
+            super(file, l1, l2, p, width, height, frames);
+        }*/
+
+        @Override
+        public void run() {
+            synchronized (video) {
+                if(i_render-1 >= max) {
+                    Bukkit.getScheduler().cancelTask(id_render);
+                }
+                ImageRenderer.renderImage(l1,l2,frames[i_render],p);
+                i_render++;
+            }
+        }
     }
 }
