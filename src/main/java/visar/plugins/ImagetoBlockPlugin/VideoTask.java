@@ -25,8 +25,7 @@ public class VideoTask {
     private final File video;
 
     private BufferedImage[] frames;
-    /*private long time1;
-    private long time2;*/
+
 
     public VideoTask(String path, Location l1, Location l2, Player p, int width, int height, int frames) {
         this.l1=l1;
@@ -52,30 +51,6 @@ public class VideoTask {
         this.frames = new BufferedImage[frames];
     }
 
-    /*@Override
-    public void run() {
-        synchronized (video) {
-            //time1 = System.currentTimeMillis();
-            if (i-9 >= max) {
-                Bukkit.getScheduler().cancelTask(id);
-            }
-            try {
-                if(i<max) {
-                    frames[i] = AWTFrameGrab.getFrame(video, i);
-                }
-                if(i>=10) {
-                    ImageRenderer.renderImage(l1, l2, frames[i-10], p);
-                }
-            } catch (IOException | JCodecException e) {
-                e.printStackTrace();
-            }
-
-        time2 = System.currentTimeMillis();
-        System.out.println("Frame: "+i+"/"+max+" - "+(time2 - time1)+"ms");
-        }
-
-    }*/
-
     public void schedule(long delay, long period) {
         this.id_load = Bukkit.getScheduler().runTaskTimer(Main.getPlugin(), new VideoImport(), delay, period).getTaskId();
         this.id_render = Bukkit.getScheduler().runTaskTimer(Main.getPlugin(), new VideoRender(), delay+100, period).getTaskId();
@@ -90,10 +65,6 @@ public class VideoTask {
     }
 
     public final class VideoImport implements Runnable {
-
-        /*public VideoImport(File file, Location l1, Location l2, Player p, int width, int height, int frames) {
-            super(file, l1, l2, p, width, height, frames);
-        }*/
 
         @Override
         public void run() {
@@ -112,10 +83,6 @@ public class VideoTask {
     }
 
     public final class VideoRender implements Runnable {
-
-        /*public VideoRender(File file, Location l1, Location l2, Player p, int width, int height, int frames) {
-            super(file, l1, l2, p, width, height, frames);
-        }*/
 
         @Override
         public void run() {
