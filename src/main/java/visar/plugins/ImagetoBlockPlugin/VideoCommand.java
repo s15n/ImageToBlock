@@ -32,17 +32,13 @@ public class VideoCommand implements CommandExecutor {
         assert filepath != null;
         if(args.length == 0) {
             try {
-                File video = new File(filepath);
-                BufferedImage image = AWTFrameGrab.getFrame(video, 1);
-                FrameGrab grab = FrameGrab.createFrameGrab(NIOUtils.readableChannel(video));
-                DemuxerTrack vt = grab.getVideoTrack();
-                VideoRenderer.renderVideo(player.getLocation(),player.getLocation().clone().add(image.getWidth(),0,image.getHeight()),filepath,player,vt.getMeta().getTotalFrames());
-            }catch(IOException | JCodecException ex) {
-                ex.printStackTrace();
-                player.sendMessage("§cYou need to first set a default image");
-                return false;
-            }
-
+		File video = new File(filepath);
+		BufferedImage img = AWTFrameGrab.getFrame(video,1);
+		renderVideo(filepath,img.getWidth(),img.getHeight(),player);
+            }catch(IOException | JCodecException e) {
+		e.printStackTrace();
+		player.sendMessage("Width and height need to be numbers");
+	    } 
         }
         if (isInteger(args[0]) && args.length == 2) {
             if(plugin.getConfig().getString(path) == null) {
@@ -50,45 +46,48 @@ public class VideoCommand implements CommandExecutor {
                 return false;
             }
             try {
-                File video = new File(filepath);
-                FrameGrab grab = FrameGrab.createFrameGrab(NIOUtils.readableChannel(video));
-                DemuxerTrack vt = grab.getVideoTrack();
-                VideoRenderer.renderVideo(player.getLocation(),player.getLocation().clone().add(Double.parseDouble(args[0]),0,Double.parseDouble(args[1])),filepath,player,vt.getMeta().getTotalFrames());
-            }catch(NumberFormatException | IOException | JCodecException e) {
-                e.printStackTrace();
-                player.sendMessage("§cWidth and height need to be integers");
-                return false;
-            }
+		renderVideo(filepath, Double.parseDouble(args[0]),Double.parseDouble(args[1]),player);
+            }catch(NumberFormatException e) {
+		e.printStackTrace();
+		player.sendMessage("Width and height need to be numbers");
+	    } 
         } else if(!isInteger(args[0]) && args.length == 1){
 
             try {
-                File video = new File(args[0]);
-                BufferedImage image = AWTFrameGrab.getFrame(video,1);
-                FrameGrab grab = FrameGrab.createFrameGrab(NIOUtils.readableChannel(video));
-                DemuxerTrack vt = grab.getVideoTrack();
-                VideoRenderer.renderVideo(player.getLocation(),player.getLocation().clone().add(image.getWidth(),0,image.getHeight()),args[0],player,vt.getMeta().getTotalFrames());
-            } catch (IOException | JCodecException e) {
-                e.printStackTrace();
-                player.sendMessage("§cFile does not exist!");
-                return false;
-            }
+		File video = new File(args[0]);
+		BufferedImage img = AWTFrameGrab.getFrame(video,1);
+		renderVideo(args[0],img.getWidth(),img.getHeight(),player);
+            }catch(IOException | JCodecException e) {
+		e.printStackTrace();
+		player.sendMessage("Width and height need to be numbers");
+	    } 
 
         }else if(!isInteger(args[0]) && args.length == 3) {
             try {
-                File video = new File(args[0]);
-                FrameGrab grab = FrameGrab.createFrameGrab(NIOUtils.readableChannel(video));
-                DemuxerTrack vt = grab.getVideoTrack();
-                VideoRenderer.renderVideo(player.getLocation(),player.getLocation().clone().add(Double.parseDouble(args[1]),0,Double.parseDouble(args[2])),args[0],player,vt.getMeta().getTotalFrames());
-            }catch(NumberFormatException | IOException | JCodecException e) {
-                player.sendMessage("§c Width and height need to be integers");
-                return false;
-            }
+		renderVideo(args[0],Double.parseDouble(args[1]),Double.parseDouble(args[2]),player);
+            }catch(NumberFormatException e) {
+		e.printStackTrace();
+		player.sendMessage("Width and height need to be numbers");
+	    } 
         }
 
         return false;
 
     }
+    private void renderVideo(String filepath, double width, double height, Player player) {
 
+        try {
+                File video = new File(filepath);
+                FrameGrab grab = FrameGrab.createFrameGrab(NIOUtils.readableChannel(video));
+                DemuxerTrack vt = grab.getVideoTrack();
+                VideoRenderer.renderVideo(player.getLocation(),player.getLocation().clone().add(width ,0,height,filepath,player,vt.getMeta().getTotalFrames());
+            }catch(IOException | JCodecException ex) {
+                ex.printStackTrace();
+                //player.sendMessage("§cWidth and height need to be integers");
+                
+            }
+    } 
+   
     private boolean isInteger(String s) {
         boolean isNumber = true;
         try {
