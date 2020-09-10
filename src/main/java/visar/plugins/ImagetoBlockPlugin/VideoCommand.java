@@ -1,6 +1,5 @@
 package visar.plugins.ImagetoBlockPlugin;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,31 +23,68 @@ public class VideoCommand implements CommandExecutor {
         if (!(sender instanceof Player)) return false;
         Player player = (Player) sender;
 
-        if (args.length < 3) {
+        if (args.length > 3) {
             player.sendMessage("§cUse /video <File Path> [width] [height] or /video [width] [height] ");
             return false;
         }
         String path = player.getUniqueId().toString() + ".video";
-        if (isInteger(args[0])) {
+        String filepath = plugin.getConfig().getString(path);
+        assert filepath != null;
+        if(args.length == 0) {
+            try {
+                File video = new File(filepath);
+                BufferedImage image = AWTFrameGrab.getFrame(video, 1);
+                renderVideo(filepath,player,image.getWidth(),image.getHeight());
+            }catch(IOException | JCodecException ex) {
+                ex.printStackTrace();
+                player.sendMessage("§cYou need to first set a default image");
+                return false;
+            }
+
+        }
+        if (isInteger(args[0]) && args.length == 2) {
             if(plugin.getConfig().getString(path) == null) {
                 player.sendMessage("§cYou need to first set a default video, to do that type /setdefaultvideo <File Path>");
                 return false;
             }
-            renderVideo(plugin.getConfig().getString(path),player);
-        } else {
-            renderVideo(args[0],player);
+            try {
+                renderVideo(filepath,player,Integer.parseInt(args[0]), Integer.parseInt(args[1]));
+            }catch(NumberFormatException e) {
+                e.printStackTrace();
+                player.sendMessage("§cWidth and height need to be integers");
+                return false;
+            }
+        } else if(!isInteger(args[0]) && args.length == 1){
+
+            try {
+                File video = new File(args[0]);
+                BufferedImage image = AWTFrameGrab.getFrame(video,1);
+                renderVideo(args[0],player,image.getWidth(),image.getHeight());
+            } catch (IOException | JCodecException e) {
+                e.printStackTrace();
+                player.sendMessage("§cFile does not exist!");
+                return false;
+            }
+
+        }else if(!isInteger(args[0]) && args.length == 3) {
+            try {
+                renderVideo(args[0], player, Integer.parseInt(args[1]), Integer.parseInt(args[2]));
+            }catch(NumberFormatException e) {
+                player.sendMessage("§c Width and height need to be integers");
+                return false;
+            }
         }
 
         return false;
 
     }
-    private void renderVideo(String filepath,Player player) {
+    private void renderVideo(String filepath,Player player,int width, int height) {
         try {
             File file = new File(filepath);
             BufferedImage exampleImg = AWTFrameGrab.getFrame(file, 1);
             FrameGrab grab = FrameGrab.createFrameGrab(NIOUtils.readableChannel(file));
             DemuxerTrack vt = grab.getVideoTrack();
-            VideoTask videoTask = new VideoTask(filepath, player.getLocation(), player.getLocation().clone().add(100, 0, 100), player, exampleImg.getWidth(), exampleImg.getHeight(), vt.getMeta().getTotalFrames());
+            VideoTask videoTask = new VideoTask(filepath, player.getLocation(), player.getLocation().clone().add(width, 0, height), player, exampleImg.getWidth(), exampleImg.getHeight(), vt.getMeta().getTotalFrames());
             videoTask.schedule(20L,1L);
         } catch (IOException | JCodecException e) {
             e.printStackTrace();
