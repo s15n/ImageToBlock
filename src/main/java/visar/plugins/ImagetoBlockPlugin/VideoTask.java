@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.net.URI;
 
 public class VideoTask implements Runnable {
-    private int i = 1;
+    private int i = 0;
     private int id;
     private final int max;
     private final Location l1;
@@ -22,7 +22,7 @@ public class VideoTask implements Runnable {
     private final int height;
     private final File video;
 
-    private BufferedImage frame;
+    private BufferedImage[] frames;
     /*private long time1;
     private long time2;*/
 
@@ -34,18 +34,24 @@ public class VideoTask implements Runnable {
         this.height=height;
         max=frames;
         video = getFile(path);
+        
+        this.frames = new BufferedImage[frames];
     }
 
     @Override
     public void run() {
         synchronized (video) {
             //time1 = System.currentTimeMillis();
-            if (i >= max) {
+            if (i-9 >= max) {
                 Bukkit.getScheduler().cancelTask(id);
             }
             try {
-                frame = AWTFrameGrab.getFrame(video, i - 1);
-                ImageRenderer.renderImage(l1, l2, frame, p);
+                if(i<max) {
+                    frames[i] = AWTFrameGrab.getFrame(video, i);
+                }
+                if(i>=0) {
+                    ImageRenderer.renderImage(l1, l2, frames[i-10], p);
+                }
             } catch (IOException | JCodecException e) {
                 e.printStackTrace();
             }
