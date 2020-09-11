@@ -32,7 +32,7 @@ public class Main extends JavaPlugin implements Listener{
 		Objects.requireNonNull(getCommand("image")).setExecutor(new ImageCommand());
 		Objects.requireNonNull(getCommand("setdefaultimage")).setExecutor(new DefaultImageCommand());
 		Objects.requireNonNull(getCommand("video")).setExecutor(new VideoCommand());
-		Objects.requireNonNull(getCommand("setdefaultvideo")).setExecutor(new DefaultImageCommand());
+		Objects.requireNonNull(getCommand("setdefaultvideo")).setExecutor(new DefaultVideoCommand());
 
 
 	} 
@@ -66,7 +66,7 @@ public class Main extends JavaPlugin implements Listener{
 			assert firstL != null;
 			assert secondL != null;
 			ImageRenderer.renderImage(firstL,secondL,image,player);
-			//VideoRenderer.renderVideo(firstL, secondL, "./test.pm4", player, 700);
+
 		}
 	}
 

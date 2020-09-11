@@ -84,7 +84,6 @@ public class VideoCommand implements CommandExecutor {
             }catch(IOException | JCodecException ex) {
                 ex.printStackTrace();
                 //player.sendMessage("§cWidth and height need to be integers");
-                  
             }
     } 
    
