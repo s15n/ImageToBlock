@@ -24,7 +24,7 @@ public class VideoTask {
     private final int height;
     private final File video;
 
-    private BufferedImage[] frames;
+    private final BufferedImage[] frames;
 
 
     public VideoTask(String path, Location l1, Location l2, Player p, int width, int height, int frames) {

@@ -14,4 +14,4 @@ commands:
     usage: /video [File Path] [width] [height]
   setdefaultvideo:
     description: sets default video
-    usage: /setdefaultimage [File Path]
+    usage: /setdefaultvideo <File Path>
