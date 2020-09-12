@@ -20,7 +20,7 @@ public class ImageRenderer {
             smallZ = bigZ == Location1.getBlockZ() ? Location2.getBlockZ() : Location1.getBlockZ();
         try {
             BufferedImage resizedImage = img;
-            if((bigX-smallX) != img.getWidth() && (bigZ-smallZ) != img.getWidth()) {
+            if((bigX-smallX) != img.getWidth() && (bigZ-smallZ) != img.getHeight()) {
                 resizedImage = resizingImage(img, (bigX - smallX), (bigZ - smallZ));
             }
             /*System.out.println("x - " + (bigX - smallX));
@@ -44,6 +44,26 @@ public class ImageRenderer {
             player.sendMessage("Problems while resizing picture");
         }
 
+    }
+
+    public static void renderImageLite(@NotNull Location l, int w, int h, @NotNull BufferedImage img, boolean resize) {
+        if(resize) {
+            renderHelper(l,w,h,resizingImage(img, w, h));
+        } else {
+            renderHelper(l,w,h,img);
+        }
+    }
+
+    private static void renderHelper(@NotNull Location l, int w, int h, @NotNull BufferedImage img) {
+        for (int x=0; x<w; x++) {
+            for(int y=0; y<h; y++) {
+                try {
+                    l.clone().add(x, h-y, 0).getBlock().setType(RGBBlockColor.getClosestBlockValue(new Color(img.getRGB(x, y))));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    return;
+                }
+            }
+        }
     }
 
     public static BufferedImage resizingImage(BufferedImage srcimage,int new_width, int new_height) {
