@@ -56,7 +56,11 @@ public class Main extends JavaPlugin implements Listener{
 			Location l = Objects.requireNonNull(e.getClickedBlock()).getLocation();
 			if(this.getConfig().get(path+".firstloc") == null) {
 				this.getConfig().set(path+".firstloc",l);
-			}else this.getConfig().set(path+".secondloc",l);
+				this.saveConfig();
+			}else {
+				this.getConfig().set(path+".secondloc",l);
+				this.saveConfig();
+			}
 			player.sendMessage(image.getWidth()+" "+image.getHeight());
 			player.sendMessage("The Z Axis is the width of the displayed picture, the X Axis is the height of the picture");
 		}

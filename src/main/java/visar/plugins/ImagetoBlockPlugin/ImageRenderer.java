@@ -37,7 +37,8 @@ public class ImageRenderer {
                 row++;
             }
             plugin.getConfig().set(path+".firstloc",null);
-            plugin.getConfig().set(path+".secondloc",null);
+            plugin.getConfig().set(path+".secondlol",null);
+            plugin.saveConfig();
         } catch (Exception e1) {
             e1.printStackTrace();
             player.sendMessage("Problems while resizing picture");
