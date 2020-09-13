@@ -44,16 +44,16 @@ public class VideoTask {
         height = h;
         max = f;
         resize = r;
-        player=p;
+        player = p;
 
-        vert = Main.getPlugin().getConfig().getBoolean(p.getUniqueId().toString()+".vertical");
+        vert = Main.getPlugin().getConfig().getBoolean(p.getUniqueId().toString() + ".vertical");
 
         this.frames = new BufferedImage[f];
     }
 
     public void schedule(long delay, long period) {
-        this.id_load = Bukkit.getScheduler().runTaskTimer(Main.getPlugin(), /*resize?(*/new VideoImport()/*):(new VideoImportOriginal())*/, delay, period).getTaskId();
-        id_render = Bukkit.getScheduler().runTaskTimer(Main.getPlugin(), new VideoRender(), delay+200, period).getTaskId();
+        this.id_load = Bukkit.getScheduler().runTaskTimerAsynchronously(Main.getPlugin(), /*resize?(*/new VideoImport()/*):(new VideoImportOriginal())*/, delay, period).getTaskId();
+        id_render = Bukkit.getScheduler().runTaskTimer(Main.getPlugin(), new VideoRender(), delay + 200, period).getTaskId();
     }
 
     private File getFile(String path) {
@@ -68,15 +68,14 @@ public class VideoTask {
 
         @Override
         public void run() {
-            synchronized (frames) {
-                i_load++;
-                try {
-                    frames[i_load] = AWTFrameGrab.getFrame(video, i_load);
-                } catch (IOException | JCodecException e) {
-                    e.printStackTrace();
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    Bukkit.getScheduler().cancelTask(id_load);
-                }
+            i_load++;
+            System.out.println("Loading frame: " + i_load + "/" + max);
+            try {
+                frames[i_load] = AWTFrameGrab.getFrame(video, i_load);
+            } catch (IOException | JCodecException e) {
+                e.printStackTrace();
+            } catch (ArrayIndexOutOfBoundsException e) {
+                Bukkit.getScheduler().cancelTask(id_load);
             }
         }
     }
@@ -85,16 +84,16 @@ public class VideoTask {
 
         @Override
         public void run() {
-            synchronized (frames) {
-                i_load++;
-                try {
-                    frames[i_load] = ImageRenderer.resizingImage(AWTFrameGrab.getFrame(video, i_load),width,height);
-                } catch (IOException | JCodecException e) {
-                    e.printStackTrace();
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    Bukkit.getScheduler().cancelTask(id_load);
-                }
+            i_load++;
+            System.out.println("Loading frame: " + i_load + "/" + max);
+            try {
+                frames[i_load] = ImageRenderer.resizingImage(AWTFrameGrab.getFrame(video, i_load), width, height);
+            } catch (IOException | JCodecException e) {
+                e.printStackTrace();
+            } catch (ArrayIndexOutOfBoundsException e) {
+                Bukkit.getScheduler().cancelTask(id_load);
             }
+
         }
     }
 
@@ -103,12 +102,12 @@ public class VideoTask {
         @Override
         public void run() {
             i_render++;
-            player.sendActionBar(ab(i_render/(float)max, i_load/(float)max));
+            player.sendActionBar(ab(i_render / (float) max, i_load / (float) max));
             if (i_render - 1 >= max) {
                 Bukkit.getScheduler().cancelTask(id_render);
             }
             try {
-                ImageRenderer.renderImageLite(l1, width, height, frames[i_render],player, vert);
+                ImageRenderer.renderImageLite(l1, width, height, frames[i_render], player, vert);
             } catch (ArrayIndexOutOfBoundsException e) {
                 Bukkit.getScheduler().cancelTask(id_render);
             }
@@ -117,15 +116,15 @@ public class VideoTask {
 
     private String ab(float p1, float p2) {
         StringBuilder sb = new StringBuilder();
-        int p1_i = (int) (p1*20);
-        int p2_i = (int) (p2*20);
-        for (int b1=0; b1<p1_i; b1++) {
+        int p1_i = (int) (p1 * 20);
+        int p2_i = (int) (p2 * 20);
+        for (int b1 = 0; b1 < p1_i; b1++) {
             sb.append("§c█");
         }
-        for (int b2=p1_i; b2<p2_i; b2++) {
+        for (int b2 = p1_i; b2 < p2_i; b2++) {
             sb.append("§7█");
         }
-        for (int b3=p2_i; b3<20; b3++) {
+        for (int b3 = p2_i; b3 < 20; b3++) {
             sb.append("§8█");
         }
         return sb.toString();
