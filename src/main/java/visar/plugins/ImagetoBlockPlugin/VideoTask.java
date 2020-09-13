@@ -101,14 +101,16 @@ public class VideoTask {
 
     private String ab(float p1, float p2) {
         StringBuilder sb = new StringBuilder();
-        for (float b1=0; b1<p1; b1+=0.05f) {
-            sb.append("§c▮");
+        int p1_i = (int) (p1*20);
+        int p2_i = (int) (p2*20);
+        for (int b1=0; b1<p1_i; b1++) {
+            sb.append("§c█");
         }
-        for (float b2=p1; b2<p2; b2+=0.05f) {
-            sb.append("§7▮");
+        for (int b2=p1_i; b2<p2_i; b2++) {
+            sb.append("§7█");
         }
-        for (float b3=p2; b3<1f; b3+=0.05f) {
-            sb.append("§8▮");
+        for (int b3=p2_i; b3<20; b3++) {
+            sb.append("§8█");
         }
         return sb.toString();
     }
