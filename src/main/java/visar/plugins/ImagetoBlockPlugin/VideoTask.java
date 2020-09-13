@@ -70,6 +70,7 @@ public class VideoTask {
         public void run() {
             i_load++;
             System.out.println("Loading frame: " + i_load + "/" + max);
+            if (i_render<0) player.sendActionBar(ab(i_render / (float) max, i_load / (float) max));
             try {
                 frames[i_load] = AWTFrameGrab.getFrame(video, i_load);
             } catch (IOException | JCodecException e) {
@@ -86,6 +87,7 @@ public class VideoTask {
         public void run() {
             i_load++;
             System.out.println("Loading frame: " + i_load + "/" + max);
+            if (i_render<0) player.sendActionBar(ab(i_render / (float) max, i_load / (float) max));
             try {
                 frames[i_load] = ImageRenderer.resizingImage(AWTFrameGrab.getFrame(video, i_load), width, height);
             } catch (IOException | JCodecException e) {
@@ -101,15 +103,17 @@ public class VideoTask {
 
         @Override
         public void run() {
-            i_render++;
-            player.sendActionBar(ab(i_render / (float) max, i_load / (float) max));
-            if (i_render - 1 >= max) {
-                Bukkit.getScheduler().cancelTask(id_render);
-            }
-            try {
-                ImageRenderer.renderImageLite(l1, width, height, frames[i_render], player, vert);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                Bukkit.getScheduler().cancelTask(id_render);
+            synchronized (frames) {
+                i_render++;
+                if (i_render - 1 >= max) {
+                    Bukkit.getScheduler().cancelTask(id_render);
+                }
+                try {
+                    ImageRenderer.renderImageLite(l1, width, height, frames[i_render], player, vert);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    Bukkit.getScheduler().cancelTask(id_render);
+                }
+                player.sendActionBar(ab(i_render / (float) max, i_load / (float) max));
             }
         }
     }
@@ -118,6 +122,7 @@ public class VideoTask {
         StringBuilder sb = new StringBuilder();
         int p1_i = (int) (p1 * 20);
         int p2_i = (int) (p2 * 20);
+        sb.append(i_render).append(' ');
         for (int b1 = 0; b1 < p1_i; b1++) {
             sb.append("§c█");
         }
@@ -127,6 +132,7 @@ public class VideoTask {
         for (int b3 = p2_i; b3 < 20; b3++) {
             sb.append("§8█");
         }
+        sb.append("§f ").append(max);
         return sb.toString();
     }
 }
