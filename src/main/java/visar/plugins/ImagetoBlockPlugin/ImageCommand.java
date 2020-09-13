@@ -30,8 +30,8 @@ public class ImageCommand implements CommandExecutor {
         int width;
         int height;
 
-        if(plugin.getConfig().contains(player.getUniqueId().toString()+".vertical")) plugin.getConfig().set(player.getUniqueId().toString()+".vertical",false);
-        if(plugin.getConfig().contains(player.getUniqueId().toString()+".togglevertwarning")) plugin.getConfig().set(player.getUniqueId().toString()+".togglevertwarning",false);
+        if(!plugin.getConfig().contains(player.getUniqueId().toString()+".vertical")) plugin.getConfig().set(player.getUniqueId().toString()+".vertical",false);
+        if(!plugin.getConfig().contains(player.getUniqueId().toString()+".togglevertwarning")) plugin.getConfig().set(player.getUniqueId().toString()+".togglevertwarning",false);
 
         try {
             if(args.length>0) {
@@ -69,7 +69,9 @@ public class ImageCommand implements CommandExecutor {
             height = args.length > 2 ? Integer.parseInt(args[2]) : image.getHeight();
             if(!plugin.getConfig().getBoolean(player.getUniqueId().toString()+".vertical")) {
                 ImageRenderer.renderImage(player.getLocation(), player.getLocation().clone().add(width, 0, height), image, player);
-            }else ImageRenderer.renderImage(player.getLocation(), player.getLocation().clone().add(width, height,0), image, player);
+            } else {
+                ImageRenderer.renderImage(player.getLocation(), player.getLocation().clone().add(width, height,0), image, player);
+            }
         } catch (NumberFormatException e) {
             player.sendMessage("§cThat was not a number!");
             return false;
