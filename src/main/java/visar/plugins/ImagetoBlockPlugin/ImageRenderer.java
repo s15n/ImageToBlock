@@ -12,8 +12,8 @@ public class ImageRenderer {
     private static final Main plugin = Main.getPlugin();
     public static void renderImage(@NotNull Location Location1, @NotNull Location Location2, @NotNull BufferedImage img,@NotNull Player player) {
         String path = player.getUniqueId().toString()+".vertical";
-        if(!plugin.getConfig().contains(player.getUniqueId().toString()+"togglevertwarning")) plugin.getConfig().set(player.getUniqueId().toString()+"togglevertwarning",false);
-        if(!plugin.getConfig().contains(path)) plugin.getConfig().set(path,false);
+        if(plugin.getConfig().contains(player.getUniqueId().toString()+"togglevertwarning")) plugin.getConfig().set(player.getUniqueId().toString()+"togglevertwarning",false);
+        if(plugin.getConfig().contains(path)) plugin.getConfig().set(path,false);
         if(plugin.getConfig().getBoolean(path)) {
             int bigX = Math.max(Location1.getBlockX(), Location2.getBlockX()),
                     smallX = bigX == Location1.getBlockX() ? Location2.getBlockX() : Location1.getBlockX(),
