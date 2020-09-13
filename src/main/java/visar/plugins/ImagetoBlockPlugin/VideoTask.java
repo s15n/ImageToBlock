@@ -58,8 +58,8 @@ public class VideoTask {
 
     private File getFile(String path) {
         if (path.startsWith("http")) {
-            URI uri = URI.create(path);
-            return new File(uri);
+            URI url = URI.create(path);
+            return new File(url);
         }
         return new File(path);
     }
@@ -91,7 +91,7 @@ public class VideoTask {
                 Bukkit.getScheduler().cancelTask(id_render);
             }
             try {
-                ImageRenderer.renderImageLite(l1, width, height, frames[i_render], resize);
+                ImageRenderer.renderImageLite(l1, width, height, frames[i_render], resize,player);
             } catch (ArrayIndexOutOfBoundsException e) {
                 Bukkit.getScheduler().cancelTask(id_render);
             }

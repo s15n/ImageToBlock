@@ -84,8 +84,23 @@ public class VideoCommand implements CommandExecutor {
                 if(width == img.getWidth() && height == img.getHeight()) resize = true;
                 FrameGrab grab = FrameGrab.createFrameGrab(NIOUtils.readableChannel(video));
                 DemuxerTrack vt = grab.getVideoTrack();
-                VideoRenderer.renderVideo(player.getLocation(),player.getLocation(),filepath,vt.getMeta().getTotalFrames(),resize,player);
-            }catch(IOException | JCodecException ex) {
+                if(plugin.getConfig().getBoolean(player.getUniqueId().toString()+".vertical")) {
+                    VideoRenderer.renderVideo(player.getLocation(), player.getLocation().clone().add(width, height,0), filepath, vt.getMeta().getTotalFrames(), resize, player);
+                    if(!plugin.getConfig().getBoolean(player.getUniqueId().toString()+"togglevertwarning")) {
+                        player.sendMessage("§aImage displayed horizontally");
+                        player.sendMessage("§cIf you want to display the image vertically use §6/vertical on§r");
+                        player.sendMessage("§cIf you don't want to see this warning anymore use §6/togglevertwarning");
+                    }
+                }else {
+                    VideoRenderer.renderVideo(player.getLocation(), player.getLocation().clone().add(width, 0,height), filepath, vt.getMeta().getTotalFrames(), resize, player);
+                    if(!plugin.getConfig().getBoolean(player.getUniqueId().toString()+"togglevertwarning")) {
+                        player.sendMessage("§aImage displayed vertically");
+                        player.sendMessage("§cIf you want to display the image horizontally use §6/vertical off§r");
+                        player.sendMessage("§cIf you don't want to see this warning anymore use §6/togglevertwarning");
+                    }
+                }
+
+        }catch(IOException | JCodecException ex) {
                 ex.printStackTrace();
                 //player.sendMessage("§cWidth and height need to be integers");
             }

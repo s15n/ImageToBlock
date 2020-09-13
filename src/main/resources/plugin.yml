@@ -15,3 +15,7 @@ commands:
   setdefaultvideo:
     description: sets default video
     #usage: /setdefaultvideo <File Path>
+  vertical:
+    description: sets if picture should be vertically or horizontally
+  togglevertwarning:
+    description: sets if warning should be displayed or not

@@ -9,58 +9,100 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class ImageRenderer {
-
+    private static final Main plugin = Main.getPlugin();
     public static void renderImage(@NotNull Location Location1, @NotNull Location Location2, @NotNull BufferedImage img,@NotNull Player player) {
-
-        Main plugin = Main.getPlugin();
-        String path = player.getUniqueId().toString()+".locations";
-        int bigX = Math.max(Location1.getBlockX(), Location2.getBlockX()),
-            smallX = bigX == Location1.getBlockX() ? Location2.getBlockX() : Location1.getBlockX(),
-            bigZ = Math.max(Location1.getBlockZ(), Location2.getBlockZ()),
-            smallZ = bigZ == Location1.getBlockZ() ? Location2.getBlockZ() : Location1.getBlockZ();
-        try {
-            BufferedImage resizedImage = img;
-            if((bigX-smallX) != img.getWidth() && (bigZ-smallZ) != img.getHeight()) {
-                resizedImage = resizingImage(img, (bigX - smallX), (bigZ - smallZ));
-            }
-            /*System.out.println("x - " + (bigX - smallX));
-            System.out.println("z - " + (bigZ - smallZ));*/
-            int row = 0;
-            for(int i = smallZ; i<bigZ; i++) {
-                int column = 0;
-                for(int j=smallX; j<bigX; j++) {
-                    Location l = new  Location(Location1.getWorld(), j, Location1.getBlockY(), i);
-                    Block b = l.getBlock();
-                    b.setType(RGBBlockColor.getClosestBlockValue(new Color(resizedImage.getRGB(column, row))));
-                    column++;
+        String path = player.getUniqueId().toString()+".vertical";
+        if(plugin.getConfig().getBoolean(path)) {
+            int bigX = Math.max(Location1.getBlockX(), Location2.getBlockX()),
+                    smallX = bigX == Location1.getBlockX() ? Location2.getBlockX() : Location1.getBlockX(),
+                    bigY = Math.max(Location1.getBlockY(), Location2.getBlockY()),
+                    smallY = bigY == Location1.getBlockY() ? Location2.getBlockY() : Location1.getBlockY();
+            try {
+                BufferedImage resizedImage = img;
+                if ((bigX - smallX) != img.getWidth() && (bigY - smallY) != img.getHeight()) {
+                    resizedImage = resizingImage(img, (bigX - smallX), (bigY - smallY));
                 }
-                row++;
+                int row = 0;
+                for (int i = smallY; i < bigY; i++) {
+                    int column = 0;
+                    for (int j = smallX; j < bigX; j++) {
+                        Location l = new Location(Location1.getWorld(), j,i,Location1.getBlockZ());
+                        Block b = l.getBlock();
+                        b.setType(RGBBlockColor.getClosestBlockValue(new Color(resizedImage.getRGB(column, row))));
+                        column++;
+                    }
+                    row++;
+                }
+                if(!plugin.getConfig().getBoolean(player.getUniqueId().toString()+"togglevertwarning")) {
+                    player.sendMessage("§aImage displayed horizontally");
+                    player.sendMessage("§cIf you want to display the image vertically use §6/vertical on§r");
+                    player.sendMessage("§cIf you don't want to see this warning anymore use §6/togglevertwarning");
+                }
+            } catch (Exception e1) {
+                e1.printStackTrace();
+                player.sendMessage("Problems while resizing picture");
             }
-            plugin.getConfig().set(path+".firstloc",null);
-            plugin.getConfig().set(path+".secondlol",null);
-            plugin.saveConfig();
-        } catch (Exception e1) {
-            e1.printStackTrace();
-            player.sendMessage("Problems while resizing picture");
+        }else {
+            int bigX = Math.max(Location1.getBlockX(), Location2.getBlockX()),
+                    smallX = bigX == Location1.getBlockX() ? Location2.getBlockX() : Location1.getBlockX(),
+                    bigZ = Math.max(Location1.getBlockZ(), Location2.getBlockZ()),
+                    smallZ = bigZ == Location1.getBlockZ() ? Location2.getBlockZ() : Location1.getBlockZ();
+            try {
+                BufferedImage resizedImage = img;
+                if ((bigX - smallX) != img.getWidth() && (bigZ - smallZ) != img.getHeight()) {
+                    resizedImage = resizingImage(img, (bigX - smallX), (bigZ - smallZ));
+                }
+                int row = 0;
+                for (int i = smallZ; i < bigZ; i++) {
+                    int column = 0;
+                    for (int j = smallX; j < bigX; j++) {
+                        Location l = new Location(Location1.getWorld(), j, Location1.getBlockY(), i);
+                        Block b = l.getBlock();
+                        b.setType(RGBBlockColor.getClosestBlockValue(new Color(resizedImage.getRGB(column, row))));
+                        column++;
+                    }
+                    row++;
+                }
+            } catch (Exception e1) {
+                e1.printStackTrace();
+                player.sendMessage("Problems while resizing picture");
+            }
+            if(!plugin.getConfig().getBoolean(player.getUniqueId().toString()+"togglevertwarning")) {
+                player.sendMessage("§aImage displayed vertically");
+                player.sendMessage("§cIf you want to display the image horizontally use §6/vertical off§r");
+                player.sendMessage("§cIf you don't want to see this warning anymore use §6/togglevertwarning");
+            }
         }
-
     }
 
-    public static void renderImageLite(@NotNull Location l, int w, int h, @NotNull BufferedImage img, boolean resize) {
+    public static void renderImageLite(@NotNull Location l, int w, int h, @NotNull BufferedImage img, boolean resize,Player p) {
+        boolean vert = plugin.getConfig().getBoolean(p.getUniqueId().toString()+".vertical");
         if(resize) {
-            renderHelper(l,w,h,resizingImage(img, w, h));
+            renderHelper(l,w,h,resizingImage(img, w, h),vert);
         } else {
-            renderHelper(l,w,h,img);
+            renderHelper(l,w,h,img,vert);
         }
     }
 
-    private static void renderHelper(@NotNull Location l, int w, int h, @NotNull BufferedImage img) {
-        for (int x=0; x<w; x++) {
-            for(int y=0; y<h; y++) {
-                try {
-                    l.clone().add(x, h-y, 0).getBlock().setType(RGBBlockColor.getClosestBlockValue(new Color(img.getRGB(x, y))));
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    return;
+    private static void renderHelper(@NotNull Location l, int w, int h, @NotNull BufferedImage img,boolean vertical) {
+        if(vertical) {
+            for (int x = 0; x < w; x++) {
+                for (int y = 0; y < h; y++) {
+                    try {
+                        l.clone().add(x, h - y, 0).getBlock().setType(RGBBlockColor.getClosestBlockValue(new Color(img.getRGB(x, y))));
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        return;
+                    }
+                }
+            }
+        }else {
+            for(int x = 0; x<w; x++) {
+                for(int z = 0; z<h; z++) {
+                    try {
+                        l.clone().add(x,0,z).getBlock().setType(RGBBlockColor.getClosestBlockValue(new Color(img.getRGB(x,z))));
+                    }catch(ArrayIndexOutOfBoundsException e) {
+                        return;
+                    }
                 }
             }
         }
@@ -74,8 +116,6 @@ public class ImageRenderer {
         g2.drawImage(srcimage, 0, 0, new_width, new_height, null);
         g2.dispose();
 
-		/*File imageFile = new File("C:/users/Simon/Desktop/Visar Server/test_resized.png");
-		ImageIO.write(resizedImage,"png",imageFile);*/
         return resizedImage;
     }
 }
