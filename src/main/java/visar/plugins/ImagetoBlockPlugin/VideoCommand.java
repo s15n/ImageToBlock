@@ -75,7 +75,9 @@ public class VideoCommand implements CommandExecutor {
 
     }
     private void renderVideo(String filepath, double width, double height, Player player) {
-        if(!plugin.getConfig().contains(player.getUniqueId().toString()+"togglevertwarning")) plugin.getConfig().set(player.getUniqueId().toString()+"togglevertwarning",false);
+        if(plugin.getConfig().contains(player.getUniqueId().toString()+"togglevertwarning")) plugin.getConfig().set(player.getUniqueId().toString()+"togglevertwarning",false);
+        if(plugin.getConfig().contains(player.getUniqueId().toString()+"vertical")) plugin.getConfig().set(player.getUniqueId().toString()+"vertical",false);
+
         try {
 
                 File video = new File(filepath);
