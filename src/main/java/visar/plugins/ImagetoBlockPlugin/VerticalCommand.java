@@ -29,6 +29,7 @@ public class VerticalCommand implements CommandExecutor {
             Main plugin = Main.getPlugin();
             if(!(plugin.getConfig().getBoolean(path))) plugin.getConfig().set(path,true);
             else plugin.getConfig().set(path,false);
+            plugin.saveConfig();
         }
         return false;
     }
