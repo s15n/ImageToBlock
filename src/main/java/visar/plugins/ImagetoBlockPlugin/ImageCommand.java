@@ -20,6 +20,7 @@ public class ImageCommand implements CommandExecutor {
             sender.sendMessage("§4You are not a player!");
             return false;
         }
+
         Player player = (Player) sender;
         /*if (args.length < 1) {
             player.sendMessage("§cPlease provide an image! Use §f/image <URL> [width] [height]");
@@ -28,6 +29,10 @@ public class ImageCommand implements CommandExecutor {
         Main plugin = Main.getPlugin();
         int width;
         int height;
+
+        if(plugin.getConfig().contains(player.getUniqueId().toString()+".vertical")) plugin.getConfig().set(player.getUniqueId().toString()+".vertical",false);
+        if(plugin.getConfig().contains(player.getUniqueId().toString()+".togglevertwarning")) plugin.getConfig().set(player.getUniqueId().toString()+".togglevertwarning",false);
+
         try {
             if(args.length>0) {
                 Integer.parseInt(args[0]);
@@ -40,7 +45,6 @@ public class ImageCommand implements CommandExecutor {
             }
             width = args.length > 0 ? Integer.parseInt(args[0]) : image.getWidth();
             height = args.length > 1 ? Integer.parseInt(args[1]) : image.getHeight();
-            if(!plugin.getConfig().contains(player.getUniqueId().toString()+".vertical")) plugin.getConfig().set(player.getUniqueId().toString()+".vertical",false);
             if(!plugin.getConfig().getBoolean(player.getUniqueId().toString()+".vertical")) {
                 ImageRenderer.renderImage(player.getLocation(), player.getLocation().clone().add(width, 0, height), image, player);
             }else ImageRenderer.renderImage(player.getLocation(), player.getLocation().clone().add(width, height,0), image, player);
@@ -63,7 +67,6 @@ public class ImageCommand implements CommandExecutor {
         try {
             width = args.length > 1 ? Integer.parseInt(args[1]) : image.getWidth();
             height = args.length > 2 ? Integer.parseInt(args[2]) : image.getHeight();
-            if(!plugin.getConfig().contains(player.getUniqueId().toString()+".vertical")) plugin.getConfig().set(player.getUniqueId().toString()+".vertical",false);
             if(!plugin.getConfig().getBoolean(player.getUniqueId().toString()+".vertical")) {
                 ImageRenderer.renderImage(player.getLocation(), player.getLocation().clone().add(width, 0, height), image, player);
             }else ImageRenderer.renderImage(player.getLocation(), player.getLocation().clone().add(width, height,0), image, player);
