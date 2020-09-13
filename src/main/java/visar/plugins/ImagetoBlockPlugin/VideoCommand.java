@@ -80,8 +80,8 @@ public class VideoCommand implements CommandExecutor {
 
                 File video = new File(filepath);
                 BufferedImage img = AWTFrameGrab.getFrame(video,1);
-                boolean resize = false;
-                if(width == img.getWidth() && height == img.getHeight()) resize = true;
+                boolean resize = true;
+                if(width == img.getWidth() && height == img.getHeight()) resize = false;
                 FrameGrab grab = FrameGrab.createFrameGrab(NIOUtils.readableChannel(video));
                 DemuxerTrack vt = grab.getVideoTrack();
                 if(plugin.getConfig().getBoolean(player.getUniqueId().toString()+".vertical")) {
