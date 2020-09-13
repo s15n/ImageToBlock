@@ -87,15 +87,15 @@ public class VideoCommand implements CommandExecutor {
                 if(plugin.getConfig().getBoolean(player.getUniqueId().toString()+".vertical")) {
                     VideoRenderer.renderVideo(player.getLocation(), player.getLocation().clone().add(width, height,0), filepath, vt.getMeta().getTotalFrames(), resize, player);
                     if(!plugin.getConfig().getBoolean(player.getUniqueId().toString()+"togglevertwarning")) {
-                        player.sendMessage("§aImage displayed horizontally");
-                        player.sendMessage("§cIf you want to display the image vertically use §6/vertical on§r");
+                        player.sendMessage("§aImage displayed vertically");
+                        player.sendMessage("§cIf you want to display the image horizontally use §6/vertical off§r");
                         player.sendMessage("§cIf you don't want to see this warning anymore use §6/togglevertwarning");
                     }
                 }else {
                     VideoRenderer.renderVideo(player.getLocation(), player.getLocation().clone().add(width, 0,height), filepath, vt.getMeta().getTotalFrames(), resize, player);
                     if(!plugin.getConfig().getBoolean(player.getUniqueId().toString()+"togglevertwarning")) {
-                        player.sendMessage("§aImage displayed vertically");
-                        player.sendMessage("§cIf you want to display the image horizontally use §6/vertical off§r");
+                        player.sendMessage("§aImage displayed horizontally");
+                        player.sendMessage("§cIf you want to display the image vertically use §6/vertical on§r");
                         player.sendMessage("§cIf you don't want to see this warning anymore use §6/togglevertwarning");
                     }
                 }

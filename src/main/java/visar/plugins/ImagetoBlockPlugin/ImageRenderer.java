@@ -75,35 +75,37 @@ public class ImageRenderer {
         }
     }
 
-    public static void renderImageLite(@NotNull Location l, int w, int h, @NotNull BufferedImage img, boolean resize,Player p) {
-        boolean vert = plugin.getConfig().getBoolean(p.getUniqueId().toString()+".vertical");
-        if(resize) {
-            renderHelper(l,w,h,resizingImage(img, w, h),vert);
-        } else {
-            renderHelper(l,w,h,img,vert);
-        }
+    public static void renderImageLite(@NotNull Location l, int w, int h, @NotNull BufferedImage img, Player p, boolean vert) {
+       // boolean vert = /*plugin.getConfig().getBoolean(p.getUniqueId().toString()+".vertical")*/true;
+        renderHelper(l,w,h,img,vert, p);
     }
 
-    private static void renderHelper(@NotNull Location l, int w, int h, @NotNull BufferedImage img,boolean vertical) {
+    private static void renderHelper(@NotNull Location l, int w, int h, @NotNull BufferedImage img,boolean vertical, Player player) {
+        Location lc = l.clone();
         if(vertical) {
+            lc.add(0,h,0);
             for (int x = 0; x < w; x++) {
                 for (int y = 0; y < h; y++) {
                     try {
-                        l.clone().add(x, h - y, 0).getBlock().setType(RGBBlockColor.getClosestBlockValue(new Color(img.getRGB(x, y))));
+                        lc.add(0, -1, 0).getBlock().setType(RGBBlockColor.getClosestBlockValue(new Color(img.getRGB(x, y))));
+                        //player.sendBlockChange(lc.add(0,-1,0),RGBBlockColor.getClosestBlockValue(new Color(img.getRGB(x, y))).createBlockData());
                     } catch (ArrayIndexOutOfBoundsException e) {
                         return;
                     }
                 }
+                lc.add(1,h,0);
             }
         }else {
             for(int x = 0; x<w; x++) {
                 for(int z = 0; z<h; z++) {
                     try {
-                        l.clone().add(x,0,z).getBlock().setType(RGBBlockColor.getClosestBlockValue(new Color(img.getRGB(x,z))));
+                        lc.add(0,0,1).getBlock().setType(RGBBlockColor.getClosestBlockValue(new Color(img.getRGB(x,z))));
+                        //player.sendBlockChange(lc.add(0,0,1),RGBBlockColor.getClosestBlockValue(new Color(img.getRGB(x, z))).createBlockData());
                     }catch(ArrayIndexOutOfBoundsException e) {
                         return;
                     }
                 }
+                lc.add(1,0,-h);
             }
         }
     }
