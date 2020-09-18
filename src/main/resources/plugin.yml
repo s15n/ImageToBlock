@@ -25,4 +25,8 @@ commands:
     description: deletes canvas
   cimage:
     description: canvas displays image
+  cvideo:
+    description: canvas displays video
+  clearcanvas:
+    description: clears canvas
 

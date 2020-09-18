@@ -25,6 +25,8 @@ public class Main extends JavaPlugin implements Listener{
 		Objects.requireNonNull(getCommand("canvas")).setExecutor(new CanvasCommands());
 		Objects.requireNonNull(getCommand("delcanvas")).setExecutor(new CanvasCommands());
 		Objects.requireNonNull(getCommand("cimage")).setExecutor(new CanvasCommands());
+		Objects.requireNonNull(getCommand("cvideo")).setExecutor(new CanvasCommands());
+		Objects.requireNonNull(getCommand("clearcanvas")).setExecutor(new CanvasCommands());
 		Objects.requireNonNull(getCommand("image")).setExecutor(new ImageCommand());
 		Objects.requireNonNull(getCommand("setdefaultimage")).setExecutor(new DefaultImageCommand());
 		Objects.requireNonNull(getCommand("video")).setExecutor(new VideoCommand());
