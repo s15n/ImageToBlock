@@ -12,8 +12,8 @@ public class ImageRenderer {
     private static final Main plugin = Main.getPlugin();
     public static void renderImage(@NotNull Location Location1, @NotNull Location Location2, @NotNull BufferedImage img,@NotNull Player player) {
         String path = player.getUniqueId().toString()+".vertical";
-        if(plugin.getConfig().contains(player.getUniqueId().toString()+"togglevertwarning")) plugin.getConfig().set(player.getUniqueId().toString()+"togglevertwarning",false);
-        if(plugin.getConfig().contains(path)) plugin.getConfig().set(path,false);
+        if(!plugin.getConfig().contains(player.getUniqueId().toString()+".togglevertwarning")) plugin.getConfig().set(player.getUniqueId().toString()+".togglevertwarning",false);
+        if(!plugin.getConfig().contains(path)) plugin.getConfig().set(path,false);
         if(plugin.getConfig().getBoolean(path)) {
             int bigX = Math.max(Location1.getBlockX(), Location2.getBlockX()),
                     smallX = bigX == Location1.getBlockX() ? Location2.getBlockX() : Location1.getBlockX(),
@@ -35,9 +35,9 @@ public class ImageRenderer {
                     }
                     row++;
                 }
-                if(!plugin.getConfig().getBoolean(player.getUniqueId().toString()+"togglevertwarning")) {
-                    player.sendMessage("§aImage displayed horizontally");
-                    player.sendMessage("§cIf you want to display the image vertically use §6/vertical on§r");
+                if(!plugin.getConfig().getBoolean(player.getUniqueId().toString()+".togglevertwarning")) {
+                    player.sendMessage("§aImage displayed vertically");
+                    player.sendMessage("§cIf you want to display the image horizontally use §6/vertical off§r");
                     player.sendMessage("§cIf you don't want to see this warning anymore use §6/togglevertwarning");
                 }
             } catch (Exception e1) {
@@ -69,9 +69,9 @@ public class ImageRenderer {
                 e1.printStackTrace();
                 player.sendMessage("Problems while resizing picture");
             }
-            if(!plugin.getConfig().getBoolean(player.getUniqueId().toString()+"togglevertwarning")) {
-                player.sendMessage("§aImage displayed vertically");
-                player.sendMessage("§cIf you want to display the image horizontally use §6/vertical off§r");
+            if(!plugin.getConfig().getBoolean(player.getUniqueId().toString()+".togglevertwarning")) {
+                player.sendMessage("§aImage displayed horizontally");
+                player.sendMessage("§cIf you want to display the image vertically use §6/vertical on§r");
                 player.sendMessage("§cIf you don't want to see this warning anymore use §6/togglevertwarning");
             }
         }

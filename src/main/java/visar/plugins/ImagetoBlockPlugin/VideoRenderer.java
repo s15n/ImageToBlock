@@ -11,7 +11,7 @@ public class VideoRenderer {
         String path = player.getUniqueId().toString()+".vertical";
         Main plugin = Main.getPlugin();
         int w,h;
-        if(plugin.getConfig().contains(path)) plugin.getConfig().set(path,false);
+        if(!plugin.getConfig().contains(path)) plugin.getConfig().set(path,false);
         if(plugin.getConfig().getBoolean(path)) {
             w = Math.abs(location2.getBlockX() - location1.getBlockX());
             h = Math.abs(location2.getBlockY() - location1.getBlockY());
