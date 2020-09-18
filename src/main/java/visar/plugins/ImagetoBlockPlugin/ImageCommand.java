@@ -37,7 +37,7 @@ public class ImageCommand implements CommandExecutor {
             if(args.length>0) {
                 Integer.parseInt(args[0]);
             }
-            image = Main.loadImageFromConfig(Main.getPlugin().getConfig().getString(player.getUniqueId().toString() + ".image"), player);
+            image = Main.loadImage(Main.getPlugin().getConfig().getString(player.getUniqueId().toString() + ".image"), player);
             if(image==null) {
                 player.sendMessage("§cThere is no pre-defined image available.");
                 player.sendMessage("§cPlease provide one using : §f/setdefaultimage <path>");

@@ -82,7 +82,7 @@ public class ImageRenderer {
         renderHelper(l,w,h,img,vert, p);
     }
 
-    private static void renderHelper(@NotNull Location l, int w, int h, @NotNull BufferedImage img,boolean vertical, Player player) {
+    private static void renderHelper(@NotNull Location l, int w, int h, @NotNull BufferedImage img,boolean vertical, Player  player) {
         Location lc = l.clone();
         if(vertical) {
             lc.add(0,h,0);

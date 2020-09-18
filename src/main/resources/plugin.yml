@@ -19,3 +19,10 @@ commands:
     description: sets if picture should be vertically or horizontally
   togglevertwarning:
     description: sets if warning should be displayed or not
+  canvas:
+    description: creates canvas
+  delcanvas:
+    description: deletes canvas
+  cimage:
+    description: canvas displays image
+
