@@ -26,7 +26,7 @@ public class Canvas implements Listener {
                 p.sendMessage("§cSomething went wrong! Try again!");
                 return;
             }
-            plugin.getConfig().set(path,true);
+            plugin.getConfig().set(path+".canvasexists",true);
             plugin.getConfig().set(path+".location",l);
             plugin.getConfig().set(path+".width",width);
             plugin.getConfig().set(path+".height",height);
