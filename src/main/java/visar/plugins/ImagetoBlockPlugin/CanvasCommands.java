@@ -52,11 +52,11 @@ public class CanvasCommands implements CommandExecutor {
                     }
                     BufferedImage img = Main.loadImage(filepath, p);
                     assert img != null;
-                    ImageRenderer.renderImage(l, l.clone().add(width, vert ? height : 0, vert ? 0 : height), img, p);
+                    ImageRenderer.renderImageLiteResized(l, width, height, img, p, vert, true);
                 } else if (args.length == 1) {
                     BufferedImage img = Main.loadImage(args[0], p);
                     assert img != null;
-                    ImageRenderer.renderImage(l, l.clone().add(width, vert ? height : 0, vert ? 0 : height), img, p);
+                    ImageRenderer.renderImageLiteResized(l, width, height, img, p, vert, true);
                 } else p.sendMessage("§cYou need to use §6/cimage [URL or File Path]");
 
                 break;

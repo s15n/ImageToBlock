@@ -1,9 +1,11 @@
 package visar.plugins.ImagetoBlockPlugin;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -77,19 +79,30 @@ public class ImageRenderer {
         }
     }
 
-    public static void renderImageLite(@NotNull Location l, int w, int h, @NotNull BufferedImage img, Player p, boolean vert) {
+    public static void renderImageLiteResized(@NotNull Location l, int w, int h, @NotNull BufferedImage img, Player p, boolean vert, boolean resize) {
+        if (resize) {
+            if (w!=img.getWidth() && h!=img.getHeight()) {
+                renderImageLite(l, w, h, resizingImage(img,w,h), p, vert);
+                return;
+            }
+        }
+        renderImageLite(l, w, h, img, p, vert);
+    }
+
+    public static void renderImageLite(@NotNull Location l, int w, int h, @Nullable BufferedImage img, Player p, boolean vert) {
        // boolean vert = /*plugin.getConfig().getBoolean(p.getUniqueId().toString()+".vertical")*/true;
         renderHelper(l,w,h,img,vert, p);
     }
 
-    private static void renderHelper(@NotNull Location l, int w, int h, @NotNull BufferedImage img,boolean vertical, Player  player) {
+    private static void renderHelper(@NotNull Location l, int w, int h, @Nullable BufferedImage img,boolean vertical, Player  player) {
         Location lc = l.clone();
+        boolean noImage = img == null;
         if(vertical) {
             lc.add(0,h,0);
             for (int x = 0; x < w; x++) {
                 for (int y = 0; y < h; y++) {
                     try {
-                        lc.add(0, -1, 0).getBlock().setType(NewRGB.getClosestBlockValue(new Color(img.getRGB(x, y))));
+                        lc.add(0, -1, 0).getBlock().setType(noImage?Material.WHITE_CONCRETE:NewRGB.getClosestBlockValue(new Color(img.getRGB(x, y))));
                         //player.sendBlockChange(lc.add(0,-1,0),RGBBlockColor.getClosestBlockValue(new Color(img.getRGB(x, y))).createBlockData());
                     } catch (ArrayIndexOutOfBoundsException e) {
                         return;
@@ -101,7 +114,7 @@ public class ImageRenderer {
             for(int x = 0; x<w; x++) {
                 for(int z = 0; z<h; z++) {
                     try {
-                        lc.add(0,0,1).getBlock().setType(NewRGB.getClosestBlockValue(new Color(img.getRGB(x,z))));
+                        lc.add(0,0,1).getBlock().setType(noImage?Material.WHITE_CONCRETE:NewRGB.getClosestBlockValue(new Color(img.getRGB(x,z))));
                         //player.sendBlockChange(lc.add(0,0,1),RGBBlockColor.getClosestBlockValue(new Color(img.getRGB(x, z))).createBlockData());
                     }catch(ArrayIndexOutOfBoundsException e) {
                         return;

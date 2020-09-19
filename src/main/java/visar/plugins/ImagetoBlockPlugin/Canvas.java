@@ -19,13 +19,7 @@ public class Canvas implements Listener {
         }
         if(!plugin.getConfig().getBoolean(canvasexists)) {
             boolean vertical = plugin.getConfig().getBoolean(p.getUniqueId().toString() + ".vertical");
-            try {
-                ImageRenderer.renderImage(p.getLocation(), p.getLocation().clone().add(width, vertical ? height : 0, vertical ? 0 : height), ImageIO.read(new File(Canvas.class.getResource("/main/resources/white3.jpg").getFile())),p);
-            }catch(IOException e) {
-                e.printStackTrace();
-                p.sendMessage("§cSomething went wrong! Try again!");
-                return;
-            }
+            ImageRenderer.renderImageLite(p.getLocation(), width, height, null, p, vertical);
             plugin.getConfig().set(path+".canvasexists",true);
             plugin.getConfig().set(path+".location",l);
             plugin.getConfig().set(path+".width",width);
@@ -41,12 +35,7 @@ public class Canvas implements Listener {
         Location l = (Location) plugin.getConfig().get(path+".location");
         assert l != null;
         boolean vertical = plugin.getConfig().getBoolean(p.getUniqueId().toString()+".vertical");
-        try {
-            ImageRenderer.renderImage(l, l.clone().add(width, vertical ? height : 0, vertical ? 0 : height), ImageIO.read(new File(Canvas.class.getResource("/main/resources/white3.jpg").getFile())),p);
-        }catch(IOException e) {
-            e.printStackTrace();
-            p.sendMessage("§cSomething went wrong! Try again!");
-        }
+        ImageRenderer.renderImageLite(l, width, height, null, p, vertical);
     }
     public static void deleteCanvas(String path) {
         plugin.getConfig().set(path,null);
