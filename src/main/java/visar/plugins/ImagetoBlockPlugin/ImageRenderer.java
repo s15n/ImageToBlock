@@ -30,7 +30,7 @@ public class ImageRenderer {
                     for (int j = smallX; j < bigX; j++) {
                         Location l = new Location(Location1.getWorld(), j,i,Location1.getBlockZ());
                         Block b = l.getBlock();
-                        b.setType(RGBBlockColor.getClosestBlockValue(new Color(resizedImage.getRGB(column, row))));
+                        b.setType(NewRGB.getClosestBlockValue(new Color(resizedImage.getRGB(column, row))));
                         column++;
                     }
                     row++;
@@ -60,7 +60,7 @@ public class ImageRenderer {
                     for (int j = smallX; j < bigX; j++) {
                         Location l = new Location(Location1.getWorld(), j, Location1.getBlockY(), i);
                         Block b = l.getBlock();
-                        b.setType(RGBBlockColor.getClosestBlockValue(new Color(resizedImage.getRGB(column, row))));
+                        b.setType(NewRGB.getClosestBlockValue(new Color(resizedImage.getRGB(column, row))));
                         column++;
                     }
                     row++;
@@ -89,7 +89,7 @@ public class ImageRenderer {
             for (int x = 0; x < w; x++) {
                 for (int y = 0; y < h; y++) {
                     try {
-                        lc.add(0, -1, 0).getBlock().setType(RGBBlockColor.getClosestBlockValue(new Color(img.getRGB(x, y))));
+                        lc.add(0, -1, 0).getBlock().setType(NewRGB.getClosestBlockValue(new Color(img.getRGB(x, y))));
                         //player.sendBlockChange(lc.add(0,-1,0),RGBBlockColor.getClosestBlockValue(new Color(img.getRGB(x, y))).createBlockData());
                     } catch (ArrayIndexOutOfBoundsException e) {
                         return;
@@ -101,7 +101,7 @@ public class ImageRenderer {
             for(int x = 0; x<w; x++) {
                 for(int z = 0; z<h; z++) {
                     try {
-                        lc.add(0,0,1).getBlock().setType(RGBBlockColor.getClosestBlockValue(new Color(img.getRGB(x,z))));
+                        lc.add(0,0,1).getBlock().setType(NewRGB.getClosestBlockValue(new Color(img.getRGB(x,z))));
                         //player.sendBlockChange(lc.add(0,0,1),RGBBlockColor.getClosestBlockValue(new Color(img.getRGB(x, z))).createBlockData());
                     }catch(ArrayIndexOutOfBoundsException e) {
                         return;
