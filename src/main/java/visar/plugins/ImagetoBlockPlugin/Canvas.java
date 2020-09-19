@@ -13,7 +13,11 @@ public class Canvas implements Listener {
 
     public static void createCanvas(Location l, int width, int height, Player p) {
         String path = p.getUniqueId().toString()+".canvas";
-        if(plugin.getConfig().getBoolean(path)) {
+        String canvasexists = path+".canvasexists";
+        if(!plugin.getConfig().contains(canvasexists)) {
+            plugin.getConfig().set(canvasexists,false);
+        }
+        if(!plugin.getConfig().getBoolean(canvasexists)) {
             boolean vertical = plugin.getConfig().getBoolean(p.getUniqueId().toString() + ".vertical");
             try {
                 ImageRenderer.renderImage(p.getLocation(), p.getLocation().clone().add(width, vertical ? height : 0, vertical ? 0 : height), ImageIO.read(new File(Canvas.class.getResource("/main/resources/white3.jpg").getFile())),p);
