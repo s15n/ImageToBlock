@@ -32,6 +32,18 @@ public class Canvas implements Listener {
             } else p.sendMessage("§4Canvas created horizontally");
         }else p.sendMessage("§cCanvas already exists, if you want to create a new one you need to delete your old canvas with /delcanvas");
     }
+    public static void clearCanvas(String path, Player p) {
+        int width = plugin.getConfig().getInt(path+".width"), height = plugin.getConfig().getInt(path+".height");
+        Location l = (Location) plugin.getConfig().get(path+".location");
+        assert l != null;
+        boolean vertical = plugin.getConfig().getBoolean(p.getUniqueId().toString()+".vertical");
+        try {
+            ImageRenderer.renderImage(l, l.clone().add(width, vertical ? height : 0, vertical ? 0 : height), ImageIO.read(new File(Canvas.class.getResource("/main/resources/white3.jpg").getFile())),p);
+        }catch(IOException e) {
+            e.printStackTrace();
+            p.sendMessage("§cSomething went wrong! Try again!");
+        }
+    }
     public static void deleteCanvas(String path) {
         plugin.getConfig().set(path,null);
         plugin.saveConfig();
