@@ -11,10 +11,10 @@ public class NewRGB {
     static final Material[][][] materials = {
             { //RED
                     {
-                            null, REDSTONE_ORE, WHITE_TERRACOTTA, null
+                        NETHERITE_BLOCK, REDSTONE_ORE, WHITE_TERRACOTTA, WHITE_TERRACOTTA
                     },
                     {
-                        NETHER_BRICKS, PINK_TERRACOTTA, null, null
+                        NETHER_BRICKS, RED_CONCRETE, PINK_TERRACOTTA, PINK_TERRACOTTA
                     },
                     {
                         NETHERRACK, RED_CONCRETE, RED_GLAZED_TERRACOTTA, RED_GLAZED_TERRACOTTA
@@ -39,108 +39,108 @@ public class NewRGB {
             },
             { //YELLOW
                     {
-                            null, GOLD_ORE, SMOOTH_SANDSTONE, SMOOTH_SANDSTONE
+                        NETHERITE_BLOCK, GOLD_ORE, SMOOTH_SANDSTONE, SMOOTH_SANDSTONE
                     },
                     {
-                        GREEN_TERRACOTTA /*WTF*/, LIME_TERRACOTTA /*?*/, WET_SPONGE, STRIPPED_BIRCH_WOOD
+                        GREEN_TERRACOTTA , LIME_TERRACOTTA , STRIPPED_BIRCH_WOOD, STRIPPED_BIRCH_WOOD
                     },
                     {
-                            null, null, GOLD_BLOCK, YELLOW_WOOL
+                        GREEN_TERRACOTTA, LIME_TERRACOTTA, GOLD_BLOCK, YELLOW_WOOL
                     },
                     {
-                            null, null, GOLD_BLOCK, YELLOW_WOOL
+                        GREEN_TERRACOTTA, WET_SPONGE, GOLD_BLOCK, YELLOW_WOOL
                     }
             },
             { //LIME
                     {
-                            null, MOSSY_COBBLESTONE, SLIME_BLOCK, SLIME_BLOCK
+                        NETHERITE_BLOCK, MOSSY_COBBLESTONE, SLIME_BLOCK, SLIME_BLOCK
                     },
                     {
-                        GREEN_CONCRETE, GREEN_GLAZED_TERRACOTTA, null, null
+                        GREEN_CONCRETE, GREEN_GLAZED_TERRACOTTA, LIME_GLAZED_TERRACOTTA, LIME_GLAZED_TERRACOTTA
                     },
                     {
-                            null, LIME_CONCRETE, LIME_WOOL, LIME_WOOL
+                        GREEN_CONCRETE, LIME_CONCRETE, LIME_WOOL, LIME_WOOL
                     },
                     {
-                            null, LIME_CONCRETE, LIME_WOOL, LIME_WOOL
+                        GREEN_CONCRETE, LIME_CONCRETE, LIME_WOOL, LIME_WOOL
                     }
             },
             { //GREEN
                     {
-                            null, null, null, null
+                        NETHERITE_BLOCK, MOSSY_COBBLESTONE, LIME_GLAZED_TERRACOTTA, LIME_GLAZED_TERRACOTTA
                     },
                     {
-                            null, null, null, null
+                        GREEN_TERRACOTTA, MOSSY_COBBLESTONE, GREEN_GLAZED_TERRACOTTA, GREEN_GLAZED_TERRACOTTA
                     },
                     {
-                            null, null, null, null
+                        GREEN_TERRACOTTA, GREEN_WOOL, MELON, MELON
                     },
                     {
-                            null, null, null, null
-                    },
+                            GREEN_TERRACOTTA, GREEN_WOOL, MELON, MELON
+                    }
             },
             { //TEAL
                     {
-                            null, EMERALD_ORE, null, null
+                        GRAY_CONCRETE, EMERALD_ORE, LIGHT_GRAY_GLAZED_TERRACOTTA, LIGHT_GRAY_GLAZED_TERRACOTTA
                     },
                     {
-                        DARK_PRISMARINE, null, /*SEA_LANTERN*/ null, null
+                        DARK_PRISMARINE, EMERALD_ORE, PRISMARINE_BRICKS, PRISMARINE_BRICKS
                     },
                     {
-                            null, null, EMERALD_BLOCK, EMERALD_BLOCK
+                        DARK_PRISMARINE, PRISMARINE_BRICKS, EMERALD_BLOCK, EMERALD_BLOCK
                     },
                     {
-                            null, null, EMERALD_BLOCK, EMERALD_BLOCK
+                        DARK_PRISMARINE, PRISMARINE_BRICKS, EMERALD_BLOCK, EMERALD_BLOCK
                     }
             },
             { //CYAN
                     {
-                            null, DIAMOND_ORE, WHITE_GLAZED_TERRACOTTA, WHITE_GLAZED_TERRACOTTA
+                        GRAY_CONCRETE, DIAMOND_ORE, WHITE_GLAZED_TERRACOTTA, WHITE_GLAZED_TERRACOTTA
                     },
                     {
                         WARPED_PLANKS, STRIPPED_WARPED_HYPHAE, DIAMOND_BLOCK, DIAMOND_BLOCK
                     },
                     {
-                            null,CYAN_CONCRETE, null /*TODO*/, DIAMOND_BLOCK
+                        CYAN_GLAZED_TERRACOTTA, CYAN_CONCRETE, STRIPPED_WARPED_HYPHAE, DIAMOND_BLOCK
                     },
                     {
-                            null, CYAN_CONCRETE, CYAN_CONCRETE, DIAMOND_BLOCK
+                        CYAN_GLAZED_TERRACOTTA, CYAN_CONCRETE, CYAN_CONCRETE, DIAMOND_BLOCK
                     }
             },
             { //LIGHT BLUE
                     {
-                        GRAY_CONCRETE, null, null, /*ICE*/null
+                        GRAY_CONCRETE, LAPIS_ORE, BLUE_ICE, PACKED_ICE
                     },
                     {
-                            null, null, BLUE_ICE, BLUE_ICE
+                        GRAY_CONCRETE, LAPIS_ORE, BLUE_ICE, PACKED_ICE
                     },
                     {
-                            null, LAPIS_BLOCK, LIGHT_BLUE_CONCRETE, LIGHT_BLUE_CONCRETE
+                        GRAY_CONCRETE, LAPIS_BLOCK, LIGHT_BLUE_CONCRETE, LIGHT_BLUE_CONCRETE
                     },
                     {
-                            null, LAPIS_BLOCK, LIGHT_BLUE_CONCRETE, LIGHT_BLUE_CONCRETE
+                        GRAY_CONCRETE, LAPIS_BLOCK, LIGHT_BLUE_CONCRETE, LIGHT_BLUE_CONCRETE
                     }
             },
             { //BLUE
                     {
-                            null, LIGHT_BLUE_TERRACOTTA, null, null
+                        OBSIDIAN, BLUE_CONCRETE, LIGHT_BLUE_TERRACOTTA, LIGHT_BLUE_TERRACOTTA
                     },
                     {
-                            null, null, null, null
+                        OBSIDIAN, BLUE_CONCRETE, BLUE_WOOL, BLUE_WOOL
                     },
                     {
-                            null, BLUE_CONCRETE, BLUE_CONCRETE, BLUE_CONCRETE
+                        OBSIDIAN, BLUE_CONCRETE, BLUE_WOOL, BLUE_WOOL
                     },
                     {
-                            null, BLUE_CONCRETE, BLUE_CONCRETE, BLUE_CONCRETE
+                        OBSIDIAN, BLUE_CONCRETE, BLUE_CONCRETE, BLUE_CONCRETE
                     }
             },
             { //PURPLE
                     {
-                        BLUE_TERRACOTTA, null, null, null
+                        CRYING_OBSIDIAN, BLUE_TERRACOTTA, BLUE_TERRACOTTA, BLUE_TERRACOTTA
                     },
                     {
-                        null, PURPLE_CONCRETE, PURPLE_CONCRETE, PURPLE_CONCRETE
+                        CRYING_OBSIDIAN, PURPLE_CONCRETE, PURPLE_CONCRETE, PURPLE_CONCRETE
                     },
                     {
                         CRYING_OBSIDIAN, PURPLE_CONCRETE, PURPLE_CONCRETE, PURPLE_CONCRETE
@@ -151,21 +151,21 @@ public class NewRGB {
             },
             { //MAGENTA
                     {
-                        BLACKSTONE, MAGENTA_TERRACOTTA, null, null
+                        BLACKSTONE, MAGENTA_TERRACOTTA, MAGENTA_GLAZED_TERRACOTTA, MAGENTA_GLAZED_TERRACOTTA
                     },
                     {
-                        null, null, MAGENTA_GLAZED_TERRACOTTA, MAGENTA_GLAZED_TERRACOTTA
+                        BLACKSTONE, MAGENTA_TERRACOTTA, MAGENTA_GLAZED_TERRACOTTA, MAGENTA_GLAZED_TERRACOTTA
                     },
                     {
-                        null, MAGENTA_CONCRETE, MAGENTA_WOOL, MAGENTA_WOOL
+                        BLACKSTONE, MAGENTA_CONCRETE, MAGENTA_WOOL, MAGENTA_WOOL
                     },
                     {
-                        null, MAGENTA_CONCRETE, MAGENTA_WOOL, MAGENTA_WOOL
+                        BLACKSTONE, MAGENTA_CONCRETE, MAGENTA_WOOL, MAGENTA_WOOL
                     }
             },
             { //PINK
                     {
-                        null, null, PINK_GLAZED_TERRACOTTA, PINK_GLAZED_TERRACOTTA
+                        BLACKSTONE, PINK_TERRACOTTA, PINK_GLAZED_TERRACOTTA, PINK_GLAZED_TERRACOTTA
                     },
                     {
                         CRIMSON_PLANKS, STRIPPED_CRIMSON_HYPHAE, PINK_CONCRETE, PINK_CONCRETE
