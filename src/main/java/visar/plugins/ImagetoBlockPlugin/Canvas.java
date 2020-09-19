@@ -4,9 +4,6 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
-import javax.imageio.ImageIO;
-import java.io.File;
-import java.io.IOException;
 
 public class Canvas implements Listener {
     private static final Main plugin = Main.getPlugin();
@@ -19,7 +16,7 @@ public class Canvas implements Listener {
         }
         if(!plugin.getConfig().getBoolean(canvasexists)) {
             boolean vertical = plugin.getConfig().getBoolean(p.getUniqueId().toString() + ".vertical");
-            ImageRenderer.renderImageLite(p.getLocation(), width, height, null, p, vertical);
+            ImageRenderer.renderImage(p.getLocation(), width, height, null, p);
             plugin.getConfig().set(path+".canvasexists",true);
             plugin.getConfig().set(path+".location",l);
             plugin.getConfig().set(path+".width",width);
@@ -28,14 +25,14 @@ public class Canvas implements Listener {
             if (vertical) {
                 p.sendMessage("§4Canvas created vertically");
             } else p.sendMessage("§4Canvas created horizontally");
-        }else p.sendMessage("§cCanvas already exists, if you want to create a new one you need to delete your old canvas with /delcanvas");
+        }else p.sendMessage("§cCanvas already exists, if you want to create a new one you need to delete your old canvas with §6/delcanvas");
     }
     public static void clearCanvas(String path, Player p) {
         int width = plugin.getConfig().getInt(path+".width"), height = plugin.getConfig().getInt(path+".height");
         Location l = (Location) plugin.getConfig().get(path+".location");
         assert l != null;
         boolean vertical = plugin.getConfig().getBoolean(p.getUniqueId().toString()+".vertical");
-        ImageRenderer.renderImageLite(l, width, height, null, p, vertical);
+        ImageRenderer.renderImage(l, width, height, null, p);
     }
     public static void deleteCanvas(String path) {
         plugin.getConfig().set(path,null);

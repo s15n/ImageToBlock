@@ -46,8 +46,8 @@ public class ImageCommand implements CommandExecutor {
             width = args.length > 0 ? Integer.parseInt(args[0]) : image.getWidth();
             height = args.length > 1 ? Integer.parseInt(args[1]) : image.getHeight();
             if(!plugin.getConfig().getBoolean(player.getUniqueId().toString()+".vertical")) {
-                ImageRenderer.renderImage(player.getLocation(), player.getLocation().clone().add(width, 0, height), image, player);
-            }else ImageRenderer.renderImage(player.getLocation(), player.getLocation().clone().add(width, height,0), image, player);
+                ImageRenderer.renderImage(player.getLocation(), width,height, image, player);
+            }else ImageRenderer.renderImage(player.getLocation(), width,height, image, player);
             return true;
         } catch (NumberFormatException e) {
             try {
@@ -68,9 +68,9 @@ public class ImageCommand implements CommandExecutor {
             width = args.length > 1 ? Integer.parseInt(args[1]) : image.getWidth();
             height = args.length > 2 ? Integer.parseInt(args[2]) : image.getHeight();
             if(!plugin.getConfig().getBoolean(player.getUniqueId().toString()+".vertical")) {
-                ImageRenderer.renderImage(player.getLocation(), player.getLocation().clone().add(width, 0, height), image, player);
+                ImageRenderer.renderImage(player.getLocation(), width,height, image, player);
             } else {
-                ImageRenderer.renderImage(player.getLocation(), player.getLocation().clone().add(width, height,0), image, player);
+                ImageRenderer.renderImage(player.getLocation(), width,height, image, player);
             }
         } catch (NumberFormatException e) {
             player.sendMessage("§cThat was not a number!");

@@ -34,7 +34,7 @@ public class CanvasCommands implements CommandExecutor {
                         Canvas.createCanvas(p.getLocation(), Integer.parseInt(args[0]), Integer.parseInt(args[1]), p);
                     } catch (NumberFormatException e) {
                         e.printStackTrace();
-                        p.sendMessage("width and height need to be integers");
+                        p.sendMessage("§cWidth and height need to be integers");
                         return false;
                     }
                 } else p.sendMessage("§cUse /canvas <width> <height>");
@@ -52,11 +52,11 @@ public class CanvasCommands implements CommandExecutor {
                     }
                     BufferedImage img = Main.loadImage(filepath, p);
                     assert img != null;
-                    ImageRenderer.renderImageLiteResized(l, width, height, img, p, vert, true);
+                    ImageRenderer.renderImage(l, width, height, img, p);
                 } else if (args.length == 1) {
                     BufferedImage img = Main.loadImage(args[0], p);
                     assert img != null;
-                    ImageRenderer.renderImageLiteResized(l, width, height, img, p, vert, true);
+                    ImageRenderer.renderImage(l, width, height, img, p);
                 } else p.sendMessage("§cYou need to use §6/cimage [URL or File Path]");
 
                 break;
@@ -104,6 +104,7 @@ public class CanvasCommands implements CommandExecutor {
                 break;
             case "clearcanvas":
                 Canvas.clearCanvas(path, p);
+                p.sendMessage("§aCanvas cleared");
                 break;
         }
 

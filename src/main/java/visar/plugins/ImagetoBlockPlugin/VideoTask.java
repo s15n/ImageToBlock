@@ -109,7 +109,7 @@ public class VideoTask {
                     Bukkit.getScheduler().cancelTask(id_render);
                 }
                 try {
-                    ImageRenderer.renderImageLite(l1, width, height, frames[i_render], player, vert);
+                    ImageRenderer.renderImage(l1, width, height, frames[i_render], player);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     Bukkit.getScheduler().cancelTask(id_render);
                 }
