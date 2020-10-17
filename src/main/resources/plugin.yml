@@ -31,7 +31,7 @@ commands:
     description: clears canvas
   itemframecanvas:
     description: creates canvas out of itemframes
-  itemframedelcanvas:
+  delitemframecanvas:
     description: deletes canvas out of itemframes
   itemframecimage:
     description: canvas out of itemframes displays image

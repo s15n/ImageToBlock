@@ -2,7 +2,6 @@ package visar.plugins.ImagetoBlockPlugin.renderers;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -17,7 +16,6 @@ import visar.plugins.ImagetoBlockPlugin.NewRGB;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.List;
 import java.util.Objects;
 
 public class ImageRenderer {
@@ -43,19 +41,19 @@ public class ImageRenderer {
         }
     }
     public static void renderItemFrameImage(Player p,int width, int height, BufferedImage img) {
-        Location l2 = p.getLocation().clone();
         String path = p.getUniqueId().toString();
-        boolean vert = plugin.getConfig().getBoolean(path+".vertical");
+        Location l = (Location) plugin.getConfig().get(path+".itemframe.location");
+        //boolean vert = plugin.getConfig().getBoolean(path+".vertical");
         ItemStack[][] maps = (ItemStack[][]) plugin.getConfig().get(path+".itemframe.itemframes");
         if(img != null) maps = imageToMaps(img, width, height);
-
+        assert l != null;
         for(int i=0; i < width; i++) {
             for(int j=0; j< height; j++) {
-                l2.add(0,vert ? -1 : 0,vert ? 0 : 1).getBlock().setType(Material.BLACK_WOOL);
-                ItemFrame itemFrame = p.getLocation().getWorld().spawn(l2.clone().add(0,vert ? -1 : 0, vert ? 0 : 1),ItemFrame.class);
+                l.add(0,1,0).getBlock().setType(Material.BLACK_WOOL);
+                ItemFrame itemFrame = p.getLocation().getWorld().spawn(l.clone().add(0,0,1),ItemFrame.class);
                 itemFrame.setItem(img == null ? new ItemStack(Material.BARRIER) : maps[i][j]);
             }
-            l2.add(1,vert ? height : 0,vert ? 0 : -height);
+            l.add(1,-height,0);
         }
     }
 
@@ -75,8 +73,8 @@ public class ImageRenderer {
         for(int i=0; i<width; i++) {
             for(int j=0; j< height; j++){
                 BufferedImage mapImg = img.getSubimage(i*widthRatio,j*heightRatio,widthRatio,heightRatio);
-                maps[i][j] = new ItemStack(Material.MAP);
-                MapMeta mapMeta = (MapMeta) maps[i][j].getItemMeta();
+                ItemStack tempMap = new ItemStack(Material.MAP);
+                MapMeta mapMeta = (MapMeta) tempMap.getItemMeta();
                 Objects.requireNonNull(mapMeta.getMapView()).getRenderers().clear();
                 mapMeta.getMapView().addRenderer(new MapRenderer() {
                     @Override
@@ -84,7 +82,7 @@ public class ImageRenderer {
                         canvas.drawImage(0,0,mapImg);
                     }
                 });
-
+                maps[i][j] = tempMap;
             }
         }
         return maps;

@@ -5,7 +5,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import visar.plugins.ImagetoBlockPlugin.renderers.ImageRenderer;
 
-import java.util.List;
 
 public class ItemFrameCanvas {
     private static final Main plugin = Main.getPlugin();

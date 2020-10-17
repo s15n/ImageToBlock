@@ -35,7 +35,7 @@ public class Main extends JavaPlugin implements Listener{
 		Objects.requireNonNull(getCommand("vertical")).setExecutor((new VerticalCommand()));
 		Objects.requireNonNull(getCommand("togglevertwarning")).setExecutor(new VerticalCommand());
 		Objects.requireNonNull(getCommand("itemframecanvas")).setExecutor(new IFCanvasCommands());
-		Objects.requireNonNull(getCommand("itemframedelcanvas")).setExecutor(new IFCanvasCommands());
+		Objects.requireNonNull(getCommand("delitemframecanvas")).setExecutor(new IFCanvasCommands());
 		Objects.requireNonNull(getCommand("itemframecimage")).setExecutor(new IFCanvasCommands());
 
 	} 
