@@ -2,10 +2,10 @@ package visar.plugins.ImagetoBlockPlugin;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
+import visar.plugins.ImagetoBlockPlugin.renderers.ImageRenderer;
 
 
-public class Canvas implements Listener {
+public class Canvas {
     private static final Main plugin = Main.getPlugin();
 
     public static void createCanvas(Location l, int width, int height, Player p) {

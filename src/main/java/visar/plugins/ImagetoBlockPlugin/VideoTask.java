@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.jcodec.api.JCodecException;
 import org.jcodec.api.awt.AWTFrameGrab;
+import visar.plugins.ImagetoBlockPlugin.renderers.ImageRenderer;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

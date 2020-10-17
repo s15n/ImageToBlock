@@ -12,6 +12,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import visar.plugins.ImagetoBlockPlugin.commands.*;
+
 import javax.imageio.ImageIO;
 
 public class Main extends JavaPlugin implements Listener{
@@ -21,7 +23,6 @@ public class Main extends JavaPlugin implements Listener{
 	public void onEnable() {
 		plugin = this;
 		Bukkit.getPluginManager().registerEvents(this, this);
-		Bukkit.getPluginManager().registerEvents(new Canvas(), this);
 		Objects.requireNonNull(getCommand("canvas")).setExecutor(new CanvasCommands());
 		Objects.requireNonNull(getCommand("delcanvas")).setExecutor(new CanvasCommands());
 		Objects.requireNonNull(getCommand("cimage")).setExecutor(new CanvasCommands());
@@ -33,6 +34,10 @@ public class Main extends JavaPlugin implements Listener{
 		Objects.requireNonNull(getCommand("setdefaultvideo")).setExecutor(new DefaultVideoCommand());
 		Objects.requireNonNull(getCommand("vertical")).setExecutor((new VerticalCommand()));
 		Objects.requireNonNull(getCommand("togglevertwarning")).setExecutor(new VerticalCommand());
+		Objects.requireNonNull(getCommand("itemframecanvas")).setExecutor(new IFCanvasCommands());
+		Objects.requireNonNull(getCommand("itemframedelcanvas")).setExecutor(new IFCanvasCommands());
+		Objects.requireNonNull(getCommand("itemframecimage")).setExecutor(new IFCanvasCommands());
+
 	} 
 
 	public static BufferedImage loadImage(@Nullable String dir, @NotNull Player player) {

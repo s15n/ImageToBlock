@@ -29,4 +29,11 @@ commands:
     description: canvas displays video
   clearcanvas:
     description: clears canvas
+  itemframecanvas:
+    description: creates canvas out of itemframes
+  itemframedelcanvas:
+    description: deletes canvas out of itemframes
+  itemframecimage:
+    description: canvas out of itemframes displays image
+
 

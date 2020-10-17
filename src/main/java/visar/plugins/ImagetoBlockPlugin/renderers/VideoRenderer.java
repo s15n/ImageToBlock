@@ -1,8 +1,10 @@
-package visar.plugins.ImagetoBlockPlugin;
+package visar.plugins.ImagetoBlockPlugin.renderers;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import visar.plugins.ImagetoBlockPlugin.Main;
+import visar.plugins.ImagetoBlockPlugin.VideoTask;
 
 
 public class VideoRenderer {
